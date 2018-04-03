@@ -2,38 +2,38 @@ package entitade;
 
 public class EscalaMaiorNatural extends Escala {
 
-	public EscalaMaiorNatural(Nota tÃ´nica) {
-		super(tÃ´nica);
+	public EscalaMaiorNatural(Nota tônica) {
+		super(tônica);
 	}
 
 	@Override
-	Nota getII() {
+	protected Nota getToII() {
 		return Nota.tom(getI());
 	}
 
 	@Override
-	Nota getIII() {
-		return Nota.tom(getII());
+	protected Nota getToIII() {
+		return Nota.tom(getToII());
 	}
 
 	@Override
-	Nota getIV() {
-		return Nota.semitom(getIII());
+	protected Nota getToIV() {
+		return Nota.semitom(getToIII());
 	}
 
 	@Override
-	Nota getV() {
-		return Nota.tom(getIV());
+	protected Nota getToV() {
+		return Nota.tom(getToIV());
 	}
 
 	@Override
-	Nota getVI() {
-		return Nota.tom(getV());
+	protected Nota getToVI() {
+		return Nota.tom(getToV());
 	}
 
 	@Override
-	Nota getVII() {
-		return Nota.tom(getIV());
+	protected Nota getToVII() {
+		return Nota.tom(getToVI());
 	}
 	
 }

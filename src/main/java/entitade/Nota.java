@@ -1,27 +1,31 @@
 package entitade;
 
-import java.util.Arrays;
+import entitade.acorde.AcordeBuilder;
 
 public enum Nota {
-	A(1, "LÃ¡"),
-	As(2, "LÃ¡#"),
+	A(1, "Lá"),
+	As(2, "Lá#"),
 	B(3, "Si"),
-	C(4, "DÃ³"),
-	Cs(5, "DÃ³#"),
-	D(6, "RÃ©"),
-	Ds(7, "RÃ©#"),
+	C(4, "Dó"),
+	Cs(5, "Dó#"),
+	D(6, "Ré"),
+	Ds(7, "Ré#"),
 	E(8, "Mi"),
-	F(9, "FÃ¡"),
-	Fs(10, "FÃ¡#"),
+	F(9, "Fá"),
+	Fs(10, "Fá#"),
 	G(11, "Sol"),
 	Gs(12, "Sol#");
 
 	private Integer posicao;
 	private String nome;
+	private Integer posicaoNaEscala;
+	private Acorde acorde;
 	
 	private Nota(Integer posicao, String nome) {
 		this.posicao = posicao;
 		this.nome = nome;
+		this.posicaoNaEscala = null;
+		this.acorde = null;
 	}
 	
 	
@@ -50,5 +54,27 @@ public enum Nota {
 			}
 		}
 		return null;
+	}
+
+
+	public Integer getPosicaoNaEscala() {
+		return posicaoNaEscala;
+	}
+
+
+	public Nota setPosicaoNaEscala(Integer posicaoNaEscala) {
+		this.posicaoNaEscala = posicaoNaEscala;
+		return this;
+	}
+	
+	public Acorde acorde(Escala escala) {
+		if(this.acorde == null) {
+			this.acorde =  AcordeBuilder.build(escala, this);
+		}
+		return this.acorde;
+	}
+	
+	public Acorde acorde() {
+		return this.acorde;
 	}
 }

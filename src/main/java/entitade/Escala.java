@@ -1,28 +1,95 @@
 package entitade;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class Escala {
-	
-	private Nota t么nica;
-	
-	Escala(Nota t么nica) {
-		this.t么nica = t么nica;
+
+	private Nota I;
+	private List<Nota> notas;
+	private List<Acorde> acordes;
+
+	Escala(Nota t鬾ica) {
+		notas = new ArrayList<Nota>(7);
+		notas.add(t鬾ica.setPosicaoNaEscala(1));
+		notas.add(this.getToII().setPosicaoNaEscala(2));
+		notas.add(this.getToIII().setPosicaoNaEscala(3));
+		notas.add(this.getToIV().setPosicaoNaEscala(4));
+		notas.add(this.getToV().setPosicaoNaEscala(5));
+		notas.add(this.getToVI().setPosicaoNaEscala(6));
+		notas.add(this.getToVII().setPosicaoNaEscala(7));
 	}
 
-	public Nota getT么nica() {
-		return t么nica;
-	}
-	
 	public Nota getI() {
-		return t么nica;
+		return this.notas.get(0);
 	}
-	abstract Nota getII();
-	abstract Nota getIII();
-	abstract Nota getIV();
-	abstract Nota getV();
-	abstract Nota getVI();
-	abstract Nota getVII();
+
+	public Nota getII() {
+		return this.notas.get(1);
+	}
+
+	public Nota getIII() {
+		return this.notas.get(2);
+	}
+
+	public Nota getIV() {
+		return this.notas.get(3);
+	}
+
+	public Nota getV() {
+		return this.notas.get(4);
+	}
+
+	public Nota getVI() {
+		return this.notas.get(5);
+	}
+
+	public Nota getVII() {
+		return this.notas.get(6);
+	}
+
+	protected abstract Nota getToII();
+
+	protected abstract Nota getToIII();
+
+	protected abstract Nota getToIV();
+
+	protected abstract Nota getToV();
+
+	protected abstract Nota getToVI();
+
+	protected abstract Nota getToVII();
+
+	public List<Nota> getNotas() {
+		return this.notas;
+	}
 	
-	public void print() {
-		System.out.println(getI().getNome()+" "+getII().getNome()+" "+getIII().getNome()+" "+getIV().getNome()+" "+getV().getNome()+" "+getVI().getNome()+" "+getVII().getNome());
+	public List<Acorde> getAcordes() {
+		if(this.acordes == null) {
+			this.acordes = new ArrayList<Acorde>(7);
+			this.notas.forEach(n -> { this.acordes.add(n.acorde(this)); });
+		}
+		return this.acordes;
 	}
+	
+	public void printNotas() {
+		System.out.println("\n");
+		this.notas.forEach(n -> {
+			System.out.print(n.getNome()+" ");
+			});
+		System.out.println("\n");
+	}
+
+	public Nota getNotaNaPosicao(Integer posicao) {
+		return notas.get(posicao-1);
+	}
+
+	public Nota relativa(Nota nota, int posicaoRelativa) {
+		Integer posicao = (nota.getPosicaoNaEscala() + posicaoRelativa -2); 
+		if (posicao >= 7) {
+			posicao %= 7;
+		}
+		return notas.get(posicao);
+	};
+
 }
