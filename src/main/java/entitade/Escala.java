@@ -9,9 +9,9 @@ public abstract class Escala {
 	private List<Nota> notas;
 	private List<Acorde> acordes;
 
-	Escala(Nota tônica) {
+	Escala(Nota tonica) {
 		notas = new ArrayList<Nota>(7);
-		notas.add(tônica.setPosicaoNaEscala(1));
+		notas.add(tonica.setPosicaoNaEscala(1));
 		notas.add(this.getToII().setPosicaoNaEscala(2));
 		notas.add(this.getToIII().setPosicaoNaEscala(3));
 		notas.add(this.getToIV().setPosicaoNaEscala(4));

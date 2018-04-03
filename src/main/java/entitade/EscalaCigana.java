@@ -2,8 +2,8 @@ package entitade;
 
 public class EscalaCigana extends Escala {
 
-	public EscalaCigana(Nota tônica) {
-		super(tônica);
+	public EscalaCigana(Nota tonica) {
+		super(tonica);
 	}
 
 	@Override
