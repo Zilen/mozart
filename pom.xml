@@ -5,4 +5,15 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>mozart</name>
   <description>mozart</description>
+  
+  <dependencies>
+
+	<dependency>
+		<groupId>com.explodingart</groupId>
+		<artifactId>jmusic</artifactId>
+		<version>1.6.4</version>
+	</dependency>
+
+  </dependencies>
+  
 </project>

@@ -1,4 +1,4 @@
-package mozart;
+package jmusic;
 
 import java.util.List;
 
@@ -16,8 +16,8 @@ public class Teste {
 	
 	private static void testEscalas() {
 		System.out.println("testEscalas");
-		new EscalaMaiorNatural(Nota.C).printNotas();
-		new EscalaMenorNatural(Nota.A).printNotas();
+//		new EscalaMaiorNatural(Nota.C).printNotas();
+//		new EscalaMenorNatural(Nota.A).printNotas();
 		new EscalaCigana(Nota.C).printNotas();
 	}
 	
@@ -26,9 +26,10 @@ public class Teste {
 		List<Acorde> acordes = new EscalaMaiorNatural(Nota.C).getAcordes();
 		acordes.forEach(
 				a -> {
-					System.out.print("----");
-					a.getTriade().forEach(n -> {System.out.print(n.getNome() + " "); });
-					System.out.print("----");
+					System.out.println(a.getSus().getNome());
+//					System.out.print("----");
+//					a.getDecimaTerceira().forEach(n -> {System.out.print(n.getNome() + " "); });
+//					System.out.print("----");
 				}
 				);
 	}

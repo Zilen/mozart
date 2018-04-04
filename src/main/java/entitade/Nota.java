@@ -3,29 +3,31 @@ package entitade;
 import entitade.acorde.AcordeBuilder;
 
 public enum Nota {
-	A(1, "Lá"),
-	As(2, "Lá#"),
-	B(3, "Si"),
-	C(4, "Dó"),
-	Cs(5, "Dó#"),
-	D(6, "Ré"),
-	Ds(7, "Ré#"),
-	E(8, "Mi"),
-	F(9, "Fá"),
-	Fs(10, "Fá#"),
-	G(11, "Sol"),
-	Gs(12, "Sol#");
+	A(1, "Lá", "A"),
+	As(2, "Lá#", "A#"),
+	B(3, "Si", "B"),
+	C(4, "Dó", "C"),
+	Cs(5, "Dó#", "C#"),
+	D(6, "Ré", "D"),
+	Ds(7, "Ré#", "D#"),
+	E(8, "Mi", "E"),
+	F(9, "Fá", "F"),
+	Fs(10, "Fá#", "F#"),
+	G(11, "Sol", "G"),
+	Gs(12, "Sol#", "G#");
 
 	private Integer posicao;
 	private String nome;
 	private Integer posicaoNaEscala;
 	private Acorde acorde;
+	private String cifra;
 	
-	private Nota(Integer posicao, String nome) {
+	private Nota(Integer posicao, String nome, String cifra) {
 		this.posicao = posicao;
 		this.nome = nome;
 		this.posicaoNaEscala = null;
 		this.acorde = null;
+		this.cifra = cifra;
 	}
 	
 	
@@ -76,5 +78,15 @@ public enum Nota {
 	
 	public Acorde acorde() {
 		return this.acorde;
+	}
+
+
+	public String getCifra() {
+		return cifra;
+	}
+	
+	public Integer getDiferenca(Nota nota) {
+		Integer posicaoNota = nota.posicao < this.posicao ? nota.posicao + 12 : nota.posicao;
+		return posicaoNota - this.posicao;
 	}
 }

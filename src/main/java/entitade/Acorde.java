@@ -2,9 +2,11 @@ package entitade;
 
 import java.util.List;
 
+import entitade.acorde.TipoAcorde;
+
 public class Acorde {
 	
-	public Acorde(Escala escala, Nota tonica, List<Nota> triade, List<Nota> setimo, List<Nota> nono, List<Nota> decimaTerceira, List<Nota> sus, List<Nota> sus7) {
+	public Acorde(Escala escala, Nota tonica, ListaNota triade, ListaNota setimo, ListaNota sexta, ListaNota nono, ListaNota decimaTerceira, ListaNota sus, ListaNota sus7, TipoAcorde tipoAcorde) {
 		this.escala = escala;
 		this.tonica = tonica;
 		this.triade = triade;
@@ -13,15 +15,19 @@ public class Acorde {
 		this.decimaTerceira = decimaTerceira;
 		this.sus = sus;
 		this.sus7 = sus7;
+		this.sexta = sexta;
+		this.tipoAcorde = tipoAcorde;
 	}
 	private Nota tonica;
 	private Escala escala;
-	private List<Nota> triade;
-	private List<Nota> setimo;
-	private List<Nota> nono;
-	private List<Nota> decimaTerceira;
-	private List<Nota> sus;
-	private List<Nota> sus7;
+	private TipoAcorde tipoAcorde;
+	private ListaNota triade;
+	private ListaNota setimo;
+	private ListaNota sexta;
+	private ListaNota nono;
+	private ListaNota decimaTerceira;
+	private ListaNota sus;
+	private ListaNota sus7;
 	
 	public Nota getTonica() {
 		return tonica;
@@ -29,23 +35,30 @@ public class Acorde {
 	public Escala getEscala() {
 		return escala;
 	}
-	public List<Nota> getTriade() {
+	public ListaNota getTriade() {
 		return triade;
 	}
-	public List<Nota> getSetimo() {
+	public ListaNota getSetima() {
 		return setimo;
 	}
-	public List<Nota> getNono() {
+	public ListaNota getNona() {
 		return nono;
 	}
-	public List<Nota> getDecimaTerceira() {
+	public ListaNota getDecimaTerceira() {
 		return decimaTerceira;
 	}
-	public List<Nota> getSus() {
+	public ListaNota getSus() {
 		return sus;
 	}
-	public List<Nota> getSus7() {
+	public ListaNota getSus7() {
 		return sus7;
 	}
+	public ListaNota getSexta() {
+		return sexta;
+	}
+	public TipoAcorde getTipoAcorde() {
+		return tipoAcorde;
+	}
+	
 	
 }
