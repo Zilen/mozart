@@ -35,5 +35,4 @@ public class EscalaMaiorNatural extends Escala {
 	protected Nota getToVII() {
 		return Nota.tom(getToVI());
 	}
-	
 }

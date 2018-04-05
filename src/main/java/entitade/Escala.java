@@ -18,6 +18,7 @@ public abstract class Escala {
 		notas.add(this.getToV().setPosicaoNaEscala(5));
 		notas.add(this.getToVI().setPosicaoNaEscala(6));
 		notas.add(this.getToVII().setPosicaoNaEscala(7));
+		this.popularAcordes();
 	}
 
 	public Nota getI() {
@@ -91,5 +92,14 @@ public abstract class Escala {
 		}
 		return notas.get(posicao);
 	};
+	
+	private Escala popularAcordes() {
+		this.getNotas().forEach(n -> n.acorde(this));
+		return this;
+	}
+	
+	public boolean pertence(Som s) {
+		return this.getNotas().stream().anyMatch(n -> n.equals(s.getNota()));
+	}
 
 }

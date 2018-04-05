@@ -1,5 +1,9 @@
 package entitade;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 public enum Som {
 	B0  (31  ,  Nota.B ),
@@ -91,9 +95,66 @@ public enum Som {
 	CS8 (4435, Nota.Cs  ),
 	D8  (4699, Nota.D   ),
 	DS8 (4978, Nota.Ds  );
-	
+
+	private Integer frequencia;
+	private Nota nota;
+	private static Random random = new Random();
+
 	private Som(Integer frequencia, Nota nota) {
-		
+		this.frequencia = frequencia;
+		this.nota = nota;
 	}
+
+
+	public static Som aleatorio(Nota nota) {
+		while(true) {
+			Som s = values()[random.nextInt(88 - 0 + 1) + 0];
+			if (s.getNota().equals(nota)) {
+				return s;
+			}
+		}
+	}
+
+
+	public Integer getFrequencia() {
+		return frequencia;
+	}
+
+
+	public void setFrequencia(Integer frequencia) {
+		this.frequencia = frequencia;
+	}
+
+
+	public Nota getNota() {
+		return nota;
+	}
+
+
+	public void setNota(Nota nota) {
+		this.nota = nota;
+	}
+
+	public static Som get(Double frequencia) {
+		Som retorno = null;
+		for(Som s : values()) {
+			if (s.getFrequencia().doubleValue() >= frequencia) {
+				retorno = s;
+				break;
+			}
+		}
+		 return retorno;
+	}
+	
+	public static List<Som> intervalo(Escala escala, Som base) {
+		Double constante = 2.3;
+		return intervalo(escala, get(base.getFrequencia()/constante), get(base.getFrequencia()*(constante)));
+	}
+	public static List<Som> intervalo(Escala escala, Som inicio, Som fim) {
+		return Arrays.asList(values()).stream().filter(s -> {
+			return (s.getFrequencia() <  fim.getFrequencia() && s.getFrequencia() > inicio.getFrequencia()) && escala.pertence(s);
+		}).collect(Collectors.toList());
+	}
+
 
 }
