@@ -116,8 +116,11 @@ public enum Som {
 	}
 
 
-	public Double getFrequencia() {
+	public Double getFrequenciaDouble() {
 		return frequencia.doubleValue();
+	}
+	public Integer getFrequenciaInt() {
+		return frequencia;
 	}
 
 
@@ -138,7 +141,7 @@ public enum Som {
 	public static Som get(Double frequencia) {
 		Som retorno = null;
 		for(Som s : values()) {
-			if (s.getFrequencia().doubleValue() >= frequencia) {
+			if (s.getFrequenciaDouble().doubleValue() >= frequencia) {
 				retorno = s;
 				break;
 			}
@@ -148,11 +151,11 @@ public enum Som {
 	
 	public static List<Som> intervalo(Escala escala, Som base) {
 		Double constante = 2.3;
-		return intervalo(escala, get(base.getFrequencia()/constante), get(base.getFrequencia()*(constante)));
+		return intervalo(escala, get(base.getFrequenciaDouble()/constante), get(base.getFrequenciaDouble()*(constante)));
 	}
 	public static List<Som> intervalo(Escala escala, Som inicio, Som fim) {
 		return Arrays.asList(values()).stream().filter(s -> {
-			return (s.getFrequencia() <  fim.getFrequencia() && s.getFrequencia() > inicio.getFrequencia()) && escala.pertence(s);
+			return (s.getFrequenciaDouble() <  fim.getFrequenciaDouble() && s.getFrequenciaDouble() > inicio.getFrequenciaDouble()) && escala.pertence(s);
 		}).collect(Collectors.toList());
 	}
 
