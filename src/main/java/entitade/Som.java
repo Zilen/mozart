@@ -116,8 +116,8 @@ public enum Som {
 	}
 
 
-	public Integer getFrequencia() {
-		return frequencia;
+	public Double getFrequencia() {
+		return frequencia.doubleValue();
 	}
 
 
