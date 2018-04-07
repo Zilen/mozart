@@ -1,6 +1,8 @@
-package entitade;
+package entitade.nota;
 
+import entitade.Acorde;
 import entitade.acorde.AcordeBuilder;
+import entitade.escala.Escala;
 
 public enum Nota {
 	A(1, "Lá", "A"),

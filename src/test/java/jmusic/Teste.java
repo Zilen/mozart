@@ -3,10 +3,10 @@ package jmusic;
 import java.util.List;
 
 import entitade.Acorde;
-import entitade.EscalaCigana;
-import entitade.EscalaMaiorNatural;
-import entitade.EscalaMenorNatural;
-import entitade.Nota;
+import entitade.escala.EscalaCigana;
+import entitade.escala.EscalaMaiorNatural;
+import entitade.escala.EscalaMenorNatural;
+import entitade.nota.Nota;
 
 public class Teste {
 	public static void main(String[] args) {

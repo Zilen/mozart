@@ -2,7 +2,10 @@ package entitade;
 
 import java.util.List;
 
+import entitade.acorde.ListaNota;
 import entitade.acorde.TipoAcorde;
+import entitade.escala.Escala;
+import entitade.nota.Nota;
 
 public class Acorde {
 	

@@ -1,6 +1,6 @@
 package instrumento;
 
-import entitade.NotaTocada;
+import entitade.nota.NotaTocada;
 import jm.music.data.CPhrase;
 
 public interface Tocar {

@@ -1,7 +1,11 @@
-package entitade;
+package entitade.escala;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import entitade.Acorde;
+import entitade.nota.Nota;
+import entitade.nota.Som;
 
 public abstract class Escala {
 

@@ -1,20 +1,23 @@
-package entitade;
+package entitade.nota;
+
+import entitade.Duracao;
+import entitade.Intensidade;
 
 public class NotaTocada {
-	private Nota nota;
+	private Som nota;
 	private Intensidade intensidade;
 	private Duracao duracao;
 	
-	public NotaTocada(Nota nota, Intensidade intensidade, Duracao duracao) {
+	public NotaTocada(Som nota, Intensidade intensidade, Duracao duracao) {
 		this.nota = nota;
 		this.intensidade = intensidade;
 		this.duracao = duracao;
 	}
 	
-	public Nota getNota() {
+	public Som getNota() {
 		return nota;
 	}
-	public void setNota(Nota nota) {
+	public void setNota(Som nota) {
 		this.nota = nota;
 	}
 	public Intensidade getIntensidade() {

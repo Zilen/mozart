@@ -1,29 +1,31 @@
-package entitade;
+package entitade.escala;
 
-public class EscalaMenorNatural extends Escala {
+import entitade.nota.Nota;
 
-	public EscalaMenorNatural(Nota tonica) {
+public class EscalaCigana extends Escala {
+
+	public EscalaCigana(Nota tonica) {
 		super(tonica);
 	}
 
 	@Override
-	protected  Nota getToII() {
+	protected Nota getToII() {
 		return Nota.tom(getI());
 	}
 
 	@Override
-	protected  Nota getToIII() {
+	protected Nota getToIII() {
 		return Nota.semitom(getToII());
 	}
 
 	@Override
 	protected Nota getToIV() {
-		return Nota.tom(getToIII());
+		return Nota.tomSemitom(getToIII());
 	}
 
 	@Override
 	protected Nota getToV() {
-		return Nota.tom(getToIV());
+		return Nota.semitom(getToIV());
 	}
 
 	@Override
@@ -33,7 +35,7 @@ public class EscalaMenorNatural extends Escala {
 
 	@Override
 	protected Nota getToVII() {
-		return Nota.tom(getToVI());
+		return Nota.tomSemitom(getToVI());
 	}
 	
 }

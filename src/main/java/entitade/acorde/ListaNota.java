@@ -1,6 +1,8 @@
-package entitade;
+package entitade.acorde;
 
 import java.util.ArrayList;
+
+import entitade.nota.Nota;
 
 public class ListaNota extends ArrayList<Nota> {
 

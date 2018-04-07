@@ -1,9 +1,8 @@
 package entitade.acorde;
 
 import entitade.Acorde;
-import entitade.Escala;
-import entitade.ListaNota;
-import entitade.Nota;
+import entitade.escala.Escala;
+import entitade.nota.Nota;
 
 public class AcordeBuilder {
 

@@ -1,10 +1,11 @@
-package entitade;
+package entitade.nota;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+import entitade.escala.Escala;
 import jm.constants.Pitches;
 
 public enum Som {
@@ -159,7 +160,9 @@ public enum Som {
 		}).collect(Collectors.toList());
 	}
 
-
+	public static List<Som> getList() {
+		return Arrays.asList(values());
+	}
 	public Integer getPitch() {
 		return pitch;
 	}

@@ -1,4 +1,4 @@
-package entitade;
+package entitade.nota;
 
 public enum NotasBemol {
 	A,

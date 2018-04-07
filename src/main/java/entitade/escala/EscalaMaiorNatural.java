@@ -1,8 +1,10 @@
-package entitade;
+package entitade.escala;
 
-public class EscalaCigana extends Escala {
+import entitade.nota.Nota;
 
-	public EscalaCigana(Nota tonica) {
+public class EscalaMaiorNatural extends Escala {
+
+	public EscalaMaiorNatural(Nota tonica) {
 		super(tonica);
 	}
 
@@ -13,27 +15,26 @@ public class EscalaCigana extends Escala {
 
 	@Override
 	protected Nota getToIII() {
-		return Nota.semitom(getToII());
+		return Nota.tom(getToII());
 	}
 
 	@Override
 	protected Nota getToIV() {
-		return Nota.tomSemitom(getToIII());
+		return Nota.semitom(getToIII());
 	}
 
 	@Override
 	protected Nota getToV() {
-		return Nota.semitom(getToIV());
+		return Nota.tom(getToIV());
 	}
 
 	@Override
 	protected Nota getToVI() {
-		return Nota.semitom(getToV());
+		return Nota.tom(getToV());
 	}
 
 	@Override
 	protected Nota getToVII() {
-		return Nota.tomSemitom(getToVI());
+		return Nota.tom(getToVI());
 	}
-	
 }
