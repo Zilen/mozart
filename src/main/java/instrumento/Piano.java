@@ -1,5 +1,7 @@
 package instrumento;
 
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -20,7 +22,7 @@ public class Piano {
 	public static void main(String[] args) {
 
 		Part part = new Part();
-		part.setTempo(60);
+		part.setTempo(40);
 		Random random  = new Random();
 		Phrase fraseMelodia = new Phrase(0);
 		Escala doMaior = new EscalaMaiorNatural(Nota.D);
@@ -28,9 +30,15 @@ public class Piano {
 		List<Som> intervaloBase = Som.intervalo(doMaior, Som.B2, Som.C4);
 		
 		
-		for(int i = 0; i < 20; i++) {
-			fraseMelodia.add(new Note(intervalo.get(random.nextInt(intervalo.size())).getFrequencia(), 0.5));
-		}
+//		for(int i = 0; i < 20; i++) {
+//			fraseMelodia.add(new Note(intervalo.get(random.nextInt(intervalo.size())).getFrequencia(),  0.5));
+//			
+//		}
+		
+		fraseMelodia.addNoteList(montarArpegio(doMaior.getVI().acorde().getTriade(), intervaloBase));
+		fraseMelodia.addNoteList(montarArpegio(doMaior.getIV().acorde().getTriade(), intervaloBase));
+		fraseMelodia.addNoteList(montarArpegio(doMaior.getI().acorde().getTriade(), intervaloBase));
+		fraseMelodia.addNoteList(montarArpegio(doMaior.getV().acorde().getTriade(), intervaloBase));
 		
 		
 		CPhrase cphraseAcordes = new CPhrase(0);
@@ -38,15 +46,15 @@ public class Piano {
 //		cphraseAcordes.addChord(montarAcorde(a.getTriade(), intervaloBase));
 //		});
 		
-		for(int i =0; i<4; i++) {
+		for(int i =0; i<2; i++) {
 //			cphraseAcordes.addChord(montarAcorde(doMaior.getI().acorde().getTriade(), intervaloBase));
 //			cphraseAcordes.addChord(montarAcorde(doMaior.getV().acorde().getTriade(), intervaloBase));
 //			cphraseAcordes.addChord(montarAcorde(doMaior.getVI().acorde().getTriade(), intervaloBase));
 //			cphraseAcordes.addChord(montarAcorde(doMaior.getIV().acorde().getTriade(), intervaloBase));
-			cphraseAcordes.addChord(montarAcorde(doMaior.getVI().acorde().getSetima(), intervaloBase));
-			cphraseAcordes.addChord(montarAcorde(doMaior.getIV().acorde().getSetima(), intervaloBase));
-			cphraseAcordes.addChord(montarAcorde(doMaior.getI().acorde().getSetima(), intervaloBase));
-			cphraseAcordes.addChord(montarAcorde(doMaior.getV().acorde().getSetima(), intervaloBase));
+//			cphraseAcordes.addChord(montarAcorde(doMaior.getVI().acorde().getTriade(), intervaloBase));
+//			cphraseAcordes.addChord(montarAcorde(doMaior.getIV().acorde().getTriade(), intervaloBase));
+//			cphraseAcordes.addChord(montarAcorde(doMaior.getI().acorde().getTriade(), intervaloBase));
+//			cphraseAcordes.addChord(montarAcorde(doMaior.getV().acorde().getSetima(), intervaloBase));
 		}
 		
 		
@@ -67,7 +75,32 @@ public class Piano {
 		for(montarAcordeIterator=0; montarAcordeIterator < acorde.size(); montarAcordeIterator++) {
 			notas[montarAcordeIterator] = new Note(intervalo.stream().filter(n -> n.getNota().equals(acorde.get(montarAcordeIterator))).findFirst().get().getPitch(), Duracao.SEMIBREVE.getDuracao());
 		}
-		
+		return notas;
+	}
+	private static Note[] montarArpegio(ListaNota acorde, List<Som> intervalo) {
+		System.out.println(acorde.getNome());
+		Note[] notas = new Note[acorde.size()];
+		Som inicial = intervalo.get(0);
+		boolean iniciar = Boolean.FALSE;
+		Iterator<Nota> acordeIterator = acorde.iterator();
+		Nota nota = acordeIterator.next();
+		int notaPosicao = 0;
+		for(Som s : Som.values()) {
+			if (iniciar) {
+				if (s.getNota().equals(nota)) {
+					notas[notaPosicao++] = new Note(s.getFrequencia(), Duracao.MINIMA.getDuracao());
+					if(acordeIterator.hasNext()) {
+						nota = acordeIterator.next();
+					} else {
+						break;
+					}
+				}
+			} else {
+				if (s.equals(inicial)) {
+					iniciar = Boolean.TRUE;
+				}
+			}
+		}
 		return notas;
 	}
 }
