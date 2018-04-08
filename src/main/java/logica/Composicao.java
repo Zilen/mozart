@@ -32,7 +32,7 @@ public class Composicao {
 	//compor musica;
 	public Composicao compor() {
 		comporAcordes(7);
-//		comporMelodia(16);
+		comporMelodia(16);
 		return this;
 		
 	}
