@@ -10,13 +10,18 @@ public class ListaNota extends ArrayList<Nota> {
 	 * 
 	 */
 	private static final long serialVersionUID = 512099291227029631L;
+	private int posicaoEscala;
+	private Acorde acorde;
+	private TipoAcorde tipoAcorde;
 	
-	
-	public ListaNota(int i) {
+	public ListaNota(int i, int posicaoEscala, TipoAcorde tipoAcorde) {
 		super(i);
+		this.posicaoEscala = posicaoEscala;
+		this.tipoAcorde =  tipoAcorde;
 	}
-	public ListaNota() {
+	public ListaNota(int posicaoEscala) {
 		super();
+		this.posicaoEscala = posicaoEscala;
 	}
 
 	public String getNome() {
@@ -55,6 +60,22 @@ public class ListaNota extends ArrayList<Nota> {
 			sb.append("7M");
 			break;
 		}
+	}
+	public int getPosicaoEscala() {
+		return posicaoEscala;
+	}
+	public void setPosicaoEscala(int posicaoEscala) {
+		this.posicaoEscala = posicaoEscala;
+	}
+	protected ListaNota acorde(Acorde acorde) {
+		this.acorde = acorde;
+		return this;
+	}
+	public Acorde getAcorde() {
+		return acorde;
+	}
+	public TipoAcorde getTipoAcorde() {
+		return tipoAcorde;
 	}
 
 }

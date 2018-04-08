@@ -2,7 +2,7 @@ package jmusic;
 
 import java.util.List;
 
-import entitade.Acorde;
+import entitade.acorde.Acorde;
 import entitade.escala.EscalaCigana;
 import entitade.escala.EscalaMaiorNatural;
 import entitade.escala.EscalaMenorNatural;

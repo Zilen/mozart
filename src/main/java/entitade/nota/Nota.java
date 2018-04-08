@@ -1,6 +1,6 @@
 package entitade.nota;
 
-import entitade.Acorde;
+import entitade.acorde.Acorde;
 import entitade.acorde.AcordeBuilder;
 import entitade.escala.Escala;
 

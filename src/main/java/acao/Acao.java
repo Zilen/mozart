@@ -1,15 +1,28 @@
 package acao;
-import jm.music.data.Phrase;
+import entitade.Musica;
 
-abstract class Acao {
+public abstract class Acao {
 	
-	private Double chance;
+	protected Double chance;
 
-	public double getChance() {
+	public Acao(double chance) {
+		this.chance = chance;
+	}
+	public Double getChance() {
 		return chance;
 	};
 	
-	abstract public void executar(Phrase frase);
+	abstract public void executar(Musica musica);
 	
-	abstract public void atualizarChance(Double novaChance);
+	public void atualizarChance(Double novaChance) {
+		this.chance = novaChance;
+	}
+	
+	public void somarChance(Double novaChance) {
+		this.chance += novaChance;
+	}
+	
+	public void subtrairChance(Double novaChance) {
+		this.chance -= novaChance;
+	}
 }

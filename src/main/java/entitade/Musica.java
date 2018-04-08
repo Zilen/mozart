@@ -28,11 +28,12 @@ public class Musica {
 		this.escala = escala;
 		this.melodia = new ArrayList<NotaTocada>();
 		this.acordes = new ArrayList<ListaNota>();
-		this.setNotaBaseMelodia(Som.getList().stream().filter(s -> { return s.name().equals(escala.getI().name()+"4"); }).findFirst().get());
-		this.setNotaBaseBaixo(Som.getList().stream().filter(s -> { return s.name().equals(escala.getI().name()+"3"); }).findFirst().get());
+		this.setNotaBaseMelodia(Som.getList().stream().filter(s -> { return s.name().equals(escala.getI().name().toUpperCase()+"5"); }).findFirst().get());
+		this.setNotaBaseBaixo(Som.getList().stream().filter(s -> { return s.name().equals(escala.getI().name().toUpperCase()+"3"); }).findFirst().get());
 		this.intervalo = Som.intervalo(this.getEscala(), this.getNotaBaseMelodia());                                 
 		this.intervaloBase = Som.intervalo(this.getEscala(), this.getNotaBaseBaixo(), this.getNotaBaseMelodia());
 		this.arpegio = isArpegio;
+		this.tempo= tempo;
 	}
 	public void addNota(NotaTocada nota) {
 		this.melodia.add(nota);

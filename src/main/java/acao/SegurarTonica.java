@@ -1,11 +1,16 @@
 package acao;
 
-import jm.music.data.Phrase;
+import entitade.Musica;
 
 public class SegurarTonica extends Acao{
 
+	public SegurarTonica(double chance) {
+		super(chance);
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
-	public void executar(Phrase frase) {
+	public void executar(Musica frase) {
 		// TODO Auto-generated method stub
 		
 	}

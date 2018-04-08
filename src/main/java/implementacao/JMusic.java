@@ -20,7 +20,7 @@ public class JMusic {
 	public static void render(Musica musica) {
 		
 		Part part = new Part();
-		part.setTempo(120);
+		part.setTempo(musica.getTempo());
 		Random random  = new Random();
 		Phrase fraseMelodia = new Phrase(0);
 		List<Som> intervalo = Som.intervalo(musica.getEscala(), musica.getNotaBaseMelodia());
@@ -61,7 +61,7 @@ public class JMusic {
 	
 	private static int montarAcordeIterator = 0;
 	private static Note[] montarAcorde(ListaNota acorde, List<Som> intervalo) {
-		System.out.println(acorde.getNome());
+//		System.out.println(acorde.getNome());
 		Note[] notas = new Note[acorde.size()];
 		for(montarAcordeIterator=0; montarAcordeIterator < acorde.size(); montarAcordeIterator++) {
 			notas[montarAcordeIterator] = new Note(intervalo.stream().filter(n -> n.getNota().equals(acorde.get(montarAcordeIterator))).findFirst().get().getPitch(), Duracao.SEMIBREVE.getDuracao());
@@ -70,7 +70,7 @@ public class JMusic {
 		return notas;
 	}
 	private static Note[] montarArpegio(ListaNota acorde, List<Som> intervalo) {
-		System.out.println(acorde.getNome());
+//		System.out.println(acorde.getNome());
 		Note[] notas = new Note[acorde.size()+1];
 		Som inicial = intervalo.get(0);
 		boolean iniciar = Boolean.FALSE;
@@ -80,7 +80,7 @@ public class JMusic {
 		for(Som s : Som.values()) {
 			if (iniciar) {
 				if (s.getNota().equals(nota)) {
-					notas[notaPosicao++] = new Note(s.getFrequencia(), Duracao.MINIMA.getDuracao());
+					notas[notaPosicao++] = new Note(s.getFrequencia(), Duracao.SEMINIMA.getDuracao());
 					if(acordeIterator.hasNext()) {
 						nota = acordeIterator.next();
 					} else {

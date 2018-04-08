@@ -3,15 +3,16 @@ package entitade.escala;
 import java.util.ArrayList;
 import java.util.List;
 
-import entitade.Acorde;
+import acao.acorde.AcordesAcao;
+import entitade.acorde.Acorde;
 import entitade.nota.Nota;
 import entitade.nota.Som;
 
 public abstract class Escala {
 
-	private Nota I;
 	private List<Nota> notas;
 	private List<Acorde> acordes;
+	private List<AcordesAcao> acordesAcaoList;
 
 	Escala(Nota tonica) {
 		notas = new ArrayList<Nota>(7);
@@ -23,6 +24,14 @@ public abstract class Escala {
 		notas.add(this.getToVI().setPosicaoNaEscala(6));
 		notas.add(this.getToVII().setPosicaoNaEscala(7));
 		this.popularAcordes();
+		this.acordesAcaoList = new ArrayList<AcordesAcao>(7);
+		this.getNotas().forEach(n -> {
+			if(n.acorde().getPosicaoEscala() == 1) {
+				this.acordesAcaoList.add(new AcordesAcao(1.0, n.acorde().getTriade()));	
+			} else {
+				this.acordesAcaoList.add(new AcordesAcao(0.0, n.acorde().getTriade()));
+			}
+		});
 	}
 
 	public Nota getI() {
@@ -104,6 +113,10 @@ public abstract class Escala {
 	
 	public boolean pertence(Som s) {
 		return this.getNotas().stream().anyMatch(n -> n.equals(s.getNota()));
+	}
+
+	public List<AcordesAcao> getAcordesAcaoList() {
+		return acordesAcaoList;
 	}
 
 }
