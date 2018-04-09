@@ -24,16 +24,22 @@ public class Musica {
 		this(escala, tempo, true);
 	}
 	
-	public Musica(Escala escala, Integer tempo, boolean isArpegio) {
+	
+	public Musica(Escala escala, Integer tempo, boolean isArpegio, Som notaBase, Som notaMelodia) {
 		this.escala = escala;
 		this.melodia = new ArrayList<NotaTocada>();
 		this.acordes = new ArrayList<ListaNota>();
-		this.setNotaBaseMelodia(Som.getList().stream().filter(s -> { return s.name().equals(escala.getI().name().toUpperCase()+"5"); }).findFirst().get());
-		this.setNotaBaseBaixo(Som.getList().stream().filter(s -> { return s.name().equals(escala.getI().name().toUpperCase()+"3"); }).findFirst().get());
+		this.notaBaseBaixo = notaBase;
+		this.notaBaseMelodia = notaMelodia;
 		this.intervalo = Som.intervalo(this.getEscala(), this.getNotaBaseMelodia());                                 
 		this.intervaloBase = Som.intervalo(this.getEscala(), this.getNotaBaseBaixo(), this.getNotaBaseMelodia());
 		this.arpegio = isArpegio;
 		this.tempo= tempo;
+	}
+	public Musica(Escala escala, Integer tempo, boolean isArpegio) {
+		this(escala, tempo, isArpegio, 
+				(Som.getList().stream().filter(s -> { return s.name().equals(escala.getI().name().toUpperCase()+"3"); }).findFirst().get()),
+				(Som.getList().stream().filter(s -> { return s.name().equals(escala.getI().name().toUpperCase()+"5"); }).findFirst().get()));
 	}
 	public void addNota(NotaTocada nota) {
 		this.melodia.add(nota);

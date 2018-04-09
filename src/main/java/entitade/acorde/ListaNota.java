@@ -61,7 +61,7 @@ public class ListaNota extends ArrayList<Nota> {
 			break;
 		}
 	}
-	public int getPosicaoEscala() {
+	public Integer getPosicaoEscala() {
 		return posicaoEscala;
 	}
 	public void setPosicaoEscala(int posicaoEscala) {

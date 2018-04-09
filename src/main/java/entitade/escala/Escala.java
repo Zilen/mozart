@@ -15,6 +15,9 @@ public abstract class Escala {
 	private List<AcordesAcao> acordesAcaoList;
 
 	Escala(Nota tonica) {
+		if(tonica == null) {
+			tonica = Nota.C;
+		}
 		notas = new ArrayList<Nota>(7);
 		notas.add(tonica.setPosicaoNaEscala(1));
 		notas.add(this.getToII().setPosicaoNaEscala(2));
@@ -118,5 +121,7 @@ public abstract class Escala {
 	public List<AcordesAcao> getAcordesAcaoList() {
 		return acordesAcaoList;
 	}
+	
+	public abstract String getNome();
 
 }

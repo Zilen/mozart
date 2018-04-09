@@ -37,5 +37,10 @@ public class EscalaCigana extends Escala {
 	protected Nota getToVII() {
 		return Nota.tomSemitom(getToVI());
 	}
+
+	@Override
+	public String getNome() {
+		return "Escala Cigana";
+	}
 	
 }

@@ -37,5 +37,10 @@ public class EscalaMenorNatural extends Escala {
 	protected Nota getToVII() {
 		return Nota.tom(getToVI());
 	}
+
+	@Override
+	public String getNome() {
+		return "Escala Menor Natural";
+	}
 	
 }
