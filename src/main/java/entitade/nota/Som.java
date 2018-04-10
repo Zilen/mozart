@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+import Utils.Rand;
 import entitade.escala.Escala;
 import jm.constants.Pitches;
 
@@ -102,7 +103,7 @@ public enum Som {
 	private Double frequencia;
 	private Nota nota;
 	private Integer pitch;
-	private static Random random = new Random();
+	private static Random random = Rand.get();
 
 	private Som(Double frequencia, Nota nota, int pitch) {
 		this.frequencia = frequencia;

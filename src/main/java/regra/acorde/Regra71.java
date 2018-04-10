@@ -5,9 +5,6 @@ import java.util.List;
 import acao.acorde.AcordesAcao;
 import entitade.Musica;
 import entitade.acorde.ListaNota;
-import entitade.escala.Escala;
-import entitade.escala.EscalaMaiorNatural;
-import entitade.nota.Nota;
 
 public class Regra71 extends RegraAcorde {
 

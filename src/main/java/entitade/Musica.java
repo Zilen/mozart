@@ -19,13 +19,15 @@ public class Musica {
 	private Som notaBaseBaixo;
 	private List<Som> intervalo;
 	private List<Som> intervaloBase;
+	private Integer tempoPorCompasso;
+	private Integer qtdCompassos;
 
-	public Musica(Escala escala, Integer tempo) {
-		this(escala, tempo, true);
+	public Musica(Escala escala, Integer tempo, Integer tempoPorCompasso, Integer qtdCompassos) {
+		this(escala, tempo, true, tempoPorCompasso, qtdCompassos);
 	}
 	
 	
-	public Musica(Escala escala, Integer tempo, boolean isArpegio, Som notaBase, Som notaMelodia) {
+	public Musica(Escala escala, Integer tempo, boolean isArpegio, Som notaBase, Som notaMelodia,  Integer tempoPorCompasso, Integer qtdCompassos) {
 		this.escala = escala;
 		this.melodia = new ArrayList<NotaTocada>();
 		this.acordes = new ArrayList<ListaNota>();
@@ -35,11 +37,14 @@ public class Musica {
 		this.intervaloBase = Som.intervalo(this.getEscala(), this.getNotaBaseBaixo(), this.getNotaBaseMelodia());
 		this.arpegio = isArpegio;
 		this.tempo= tempo;
+		this.tempoPorCompasso = tempoPorCompasso;
+		this.qtdCompassos = qtdCompassos;
 	}
-	public Musica(Escala escala, Integer tempo, boolean isArpegio) {
+	public Musica(Escala escala, Integer tempo, boolean isArpegio,  Integer tempoPorCompasso, Integer qtdCompassos) {
 		this(escala, tempo, isArpegio, 
 				(Som.getList().stream().filter(s -> { return s.name().equals(escala.getI().name().toUpperCase()+"3"); }).findFirst().get()),
-				(Som.getList().stream().filter(s -> { return s.name().equals(escala.getI().name().toUpperCase()+"5"); }).findFirst().get()));
+				(Som.getList().stream().filter(s -> { return s.name().equals(escala.getI().name().toUpperCase()+"5"); }).findFirst().get()),
+				tempoPorCompasso, qtdCompassos);
 	}
 	public void addNota(NotaTocada nota) {
 		this.melodia.add(nota);
@@ -96,5 +101,28 @@ public class Musica {
 
 	public List<Som> getIntervaloBase() {
 		return intervaloBase;
+	}
+	
+	public ListaNota getAcordeInTempo(Double tempo) {
+		return this.acordes.get(this.getposicaoAcorde(tempo)-1);
+	}
+	public ListaNota getAcordeInTempo(Integer tempo) {
+		return this.getAcordeInTempo(tempo.doubleValue());
+	}
+	private int getposicaoAcorde(double tempo) {
+		if(tempo < this.getTempoPorCompasso().doubleValue()) {
+			return 1;
+		} else {
+			return 1+getposicaoAcorde(tempo-this.getTempoPorCompasso());
+		}
+	}
+
+	public Integer getTempoPorCompasso() {
+		return tempoPorCompasso;
+	}
+
+
+	public Integer getQtdCompassos() {
+		return qtdCompassos;
 	}
 }

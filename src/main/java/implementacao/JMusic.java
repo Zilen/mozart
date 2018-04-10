@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+import Utils.Rand;
 import entitade.Duracao;
 import entitade.Musica;
 import entitade.acorde.ListaNota;
@@ -21,7 +22,7 @@ public class JMusic {
 		
 		Part part = new Part();
 		part.setTempo(musica.getTempo());
-		Random random  = new Random();
+		Random random  = Rand.get();
 		Phrase fraseMelodia = new Phrase(0);
 		List<Som> intervalo = Som.intervalo(musica.getEscala(), musica.getNotaBaseMelodia());
 		List<Som> intervaloBase = Som.intervalo(musica.getEscala(), musica.getNotaBaseBaixo(), musica.getNotaBaseMelodia());

@@ -1,10 +1,10 @@
 package instrumento;
 
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+import Utils.Rand;
 import entitade.Duracao;
 import entitade.acorde.ListaNota;
 import entitade.escala.Escala;
@@ -23,7 +23,7 @@ public class Piano {
 
 		Part part = new Part();
 		part.setTempo(120);
-		Random random  = new Random();
+		Random random  = Rand.get();
 		Phrase fraseMelodia = new Phrase(0);
 		Escala doMaior = new EscalaMaiorNatural(Nota.D);
 		List<Som> intervalo = Som.intervalo(doMaior, Som.C5);
