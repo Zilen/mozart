@@ -42,10 +42,15 @@ public class Musica {
 	}
 	public Musica(Escala escala, Integer tempo, boolean isArpegio,  Integer tempoPorCompasso, Integer qtdCompassos) {
 		this(escala, tempo, isArpegio, 
-				(Som.getList().stream().filter(s -> { return s.name().equals(escala.getI().name().toUpperCase()+"3"); }).findFirst().get()),
-				(Som.getList().stream().filter(s -> { return s.name().equals(escala.getI().name().toUpperCase()+"5"); }).findFirst().get()),
+				notaBase(escala, 3),
+				notaBase(escala, 5),
 				tempoPorCompasso, qtdCompassos);
 	}
+	private static Som notaBase(Escala escala, Integer local) {
+		return (Som.getList().stream().filter(s -> { return s.name().equals(escala.getI().name().toUpperCase()+local.toString()); }).findFirst().get());
+	}
+
+
 	public void addNota(NotaTocada nota) {
 		this.melodia.add(nota);
 	}

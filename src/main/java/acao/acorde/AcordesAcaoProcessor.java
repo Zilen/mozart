@@ -4,10 +4,11 @@ import java.util.List;
 import java.util.Random;
 
 import Utils.Rand;
+import acao.AcaoProcessor;
 import entitade.Musica;
 import regra.acorde.RegraAcorde;
 
-public class AcordesAcaoProcessor {
+public class AcordesAcaoProcessor extends AcaoProcessor<AcordesAcao> {
 	
 	
 	public List<RegraAcorde> regras;
@@ -51,35 +52,4 @@ public class AcordesAcaoProcessor {
 //	public void atualizarChance(int i, List<AcordesAcao> acordesAcao, Musica musica, int qtdAcordes) {
 //			this.removerChance(i, acordesAcao, (acordesAcao.get(i).getChance() / 7.0) * 6.0);
 //	}
-	
-	private void atualizarChance(List<AcordesAcao> acordesAcao) {
-		final double chancePadrao = 1.0 / 7.0;
-		acordesAcao.forEach(a -> a.atualizarChance(chancePadrao));
-	}
-
-	public void adicionarChance(int acordeASetarChance, List<AcordesAcao> acordesAcao, double chanceAAdicionar) {
-		double chanceExtraida = chanceAAdicionar / (1.0 - (acordesAcao.get(acordeASetarChance).getChance()));
-		for(AcordesAcao acordeAcao : acordesAcao) {
-			if(acordeAcao.equals(acordesAcao.get(acordeASetarChance))) {
-				acordeAcao.somarChance(chanceAAdicionar);
-			} else {
-				acordeAcao.subtrairChance(acordeAcao.getChance() * chanceExtraida);
-			}
-		}
-	}
-	
-	public void removerChance(int acordeARemoverChance, List<AcordesAcao> acordesAcao, double chanceARemover) {
-		double chanceASomar = chanceARemover/6.0;
-		if(chanceARemover > acordesAcao.get(acordeARemoverChance).getChance()) {
-			throw new RuntimeException ("chance a retirar maior que a presente");
-		}
-		for(AcordesAcao acordeAcao : acordesAcao) {
-			if(acordeAcao.equals(acordesAcao.get(acordeARemoverChance))) {
-				acordeAcao.subtrairChance(chanceARemover);
-			} else {
-				acordeAcao.somarChance(chanceASomar);
-			}
-		}
-	}
-
 }

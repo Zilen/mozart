@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Utils.Rand;
+import acao.AcaoProcessor;
 import entitade.Duracao;
 import entitade.Intensidade;
 import entitade.Musica;
@@ -12,7 +13,7 @@ import entitade.nota.NotaTocada;
 import entitade.nota.Som;
 import regra.Regra;
 
-public class MelodiaAcaoProcessor {
+public class MelodiaAcaoProcessor extends AcaoProcessor<FraseAcao> {
 	
 	
 	public List<Regra> regras;
