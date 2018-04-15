@@ -1,13 +1,16 @@
 package entitade.nota;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.stream.Collectors;
 
 import Utils.Rand;
 import entitade.escala.Escala;
 import jm.constants.Pitches;
+import math.DistribuicaoNormal;
 
 public enum Som {
 	B0  (31.0  , Nota.B , 1,  Pitches.B0),
@@ -209,6 +212,27 @@ public enum Som {
 	public Integer getPitch() {
 		return pitch;
 	}
-
+	
+	public static Map<Som, Double> mapProbabilidade(List<Som> notas, Som som, Escala e) {
+		Map<Som, Double> probabilidadeEscala = new HashMap<Som, Double>();
+		Map<Som, Double> probabilidadeCromatica = new HashMap<Som, Double>();
+		List<Som> escalaCromatica = Som.getList().stream().filter(s ->  s.posicao >= notas.get(0).posicao && s.posicao <= notas.get(notas.size() -1).posicao).collect(Collectors.toList());
+		Double somatoria = 0.0;
+		for(Som s : escalaCromatica) {
+			double valor = DistribuicaoNormal.getY(s.posicao.doubleValue(), som.posicao.doubleValue(), 0.9);
+			somatoria += valor;
+			probabilidadeEscala.put(s, valor);
+		}
+		for(Som s : notas) {
+			double valor = DistribuicaoNormal.getY(s.posicao.doubleValue(), som.posicao.doubleValue(), 0.9);
+			somatoria += valor;
+			probabilidadeEscala.put(s, probabilidadeEscala.get(s) + valor);
+		}
+		for(Som s : escalaCromatica) {
+			probabilidadeEscala.put(s, probabilidadeEscala.get(s) / somatoria);
+		}
+		
+		return probabilidadeEscala;
+	}
 
 }
