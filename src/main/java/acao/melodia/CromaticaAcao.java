@@ -27,17 +27,19 @@ public class CromaticaAcao extends FraseAcao {
 	public List<NotaTocada> executar(Musica musica, List<ListaNota> acordes, int qtdAcordes, int totalTempos) {
 		
 		List<Probabilidade<Som>> notasProbabilidade = new ArrayList<Probabilidade<Som>>();
+		NotaTocada ultimaNota = new NotaTocada(Som.C4, null, Duracao.SEMINIMA);
+		
+		for(int i = 0; i < 20; i++) {
+			
+		}
+		Som.mapProbabilidade(musica.getIntervalo(), ultimaNota.getNota(), musica.getEscala());
+		
 		List<Probabilidade<Duracao>> duracaoProbabilidade = new ArrayList<Probabilidade<Duracao>>();
 		
 		
-		double probabilidadeNota =  1.0 / musica.getIntervalo().size();
-		List<Som> notasProximas = musica.getIntervalo().stream().filter(s -> s.getDistanciaTonal(s, musica.getNotaBaseMelodia()) < 10.0).collect(Collectors.toList());
-		
-		musica.getIntervalo().forEach(a-> System.out.println(""));
 		
 		
-		
-		return tocarCromatico(notasProximas, Duracao.COLCHEIA, true);
+		return tocarCromatico(musica.getIntervalo(), Duracao.COLCHEIA, true);
 	}
 	
 	
@@ -56,17 +58,17 @@ public class CromaticaAcao extends FraseAcao {
 		return listNotaTocada;
 	}
 
-	public static void main(String[] args) {
-		CromaticaAcao c = new CromaticaAcao(25.0);
-		
-		List<Som> intevalo = Som.intervalo(Som.A1, Som.GS7);
-		List<NotaTocada> a = c.tocarCromatico(intevalo, Duracao.SEMICOLCHEIA, true);
-		a.addAll(c.tocarCromatico(intevalo, Duracao.SEMICOLCHEIA, false));
-		Phrase fraseMelodia = new Phrase(0);
-		a.forEach(m -> {
-			fraseMelodia.add(new Note(m.getNota().getFrequencia(),  m.getDuracao().getDuracao()));
-		});  
-		View.show(fraseMelodia);
-		Play.midi(fraseMelodia);
-	}
+//	public static void main(String[] args) {
+//		CromaticaAcao c = new CromaticaAcao(25.0);
+//		
+//		List<Som> intevalo = Som.intervalo(Som.A1, Som.GS7);
+//		List<NotaTocada> a = c.tocarCromatico(intevalo, Duracao.SEMICOLCHEIA, true);
+//		a.addAll(c.tocarCromatico(intevalo, Duracao.SEMICOLCHEIA, false));
+//		Phrase fraseMelodia = new Phrase(0);
+//		a.forEach(m -> {
+//			fraseMelodia.add(new Note(m.getNota().getFrequencia(),  m.getDuracao().getDuracao()));
+//		});  
+//		View.show(fraseMelodia);
+//		Play.midi(fraseMelodia);
+//	}
 }

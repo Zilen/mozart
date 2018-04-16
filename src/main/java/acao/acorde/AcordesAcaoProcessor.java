@@ -27,7 +27,7 @@ public class AcordesAcaoProcessor extends AcaoProcessor<AcordesAcao> {
 			for(RegraAcorde r : this.regras) {
 				if(r.isValid(acordesAcao, musica, i)) {
 					r.executar(acordesAcao, musica, i);
-					System.out.println("executando regra: "+r.getClass().getName());
+//					System.out.println("executando regra: "+r.getClass().getName());
 				}
 			}
 			Double chance = random.nextDouble();

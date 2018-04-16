@@ -3,6 +3,7 @@ package entitade.acorde;
 import java.util.ArrayList;
 
 import entitade.nota.Nota;
+import entitade.nota.Som;
 
 public class ListaNota extends ArrayList<Nota> {
 
@@ -77,5 +78,7 @@ public class ListaNota extends ArrayList<Nota> {
 	public TipoAcorde getTipoAcorde() {
 		return tipoAcorde;
 	}
-
+	public boolean pertenceAoAcorde(Som som) {
+		return this.stream().anyMatch(n -> som.getNota().equals(n));
+	}
 }

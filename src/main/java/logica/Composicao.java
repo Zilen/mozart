@@ -46,10 +46,12 @@ public class Composicao {
 	}
 
 	private void comporMelodia(int tempos) {
+		System.out.println("Compondo Melodia");
 		new MelodiaAcaoProcessor(null).calcular(musica);
 	}
 
 	private void comporAcordes(int qtdAcordes) {
+		System.out.println("Compondo Acordes");
 		List<RegraAcorde> regras = new ArrayList<RegraAcorde>();
 		regras.add(new RegraDiminuirChance7());
 		regras.add(new Regra251());

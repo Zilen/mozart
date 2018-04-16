@@ -19,6 +19,7 @@ public class Musica {
 	private Som notaBaseBaixo;
 	private List<Som> intervalo;
 	private List<Som> intervaloBase;
+	private List<Som> intervaloCromaticoMelodia;
 	private Integer tempoPorCompasso;
 	private Integer qtdCompassos;
 
@@ -33,7 +34,8 @@ public class Musica {
 		this.acordes = new ArrayList<ListaNota>();
 		this.notaBaseBaixo = notaBase;
 		this.notaBaseMelodia = notaMelodia;
-		this.intervalo = Som.intervalo(this.getEscala(), this.getNotaBaseMelodia());                                 
+		this.intervalo = Som.intervalo(this.getEscala(), this.getNotaBaseMelodia());
+		this.intervaloCromaticoMelodia = Som.intervalo(this.intervalo.get(0), this.intervalo.get(this.intervalo.size() - 1));
 		this.intervaloBase = Som.intervalo(this.getEscala(), this.getNotaBaseBaixo(), this.getNotaBaseMelodia());
 		this.arpegio = isArpegio;
 		this.tempo= tempo;
@@ -129,5 +131,15 @@ public class Musica {
 
 	public Integer getQtdCompassos() {
 		return qtdCompassos;
+	}
+
+
+	public List<Som> getIntervaloCromaticoMelodia() {
+		return intervaloCromaticoMelodia;
+	}
+
+
+	public void setIntervaloCromaticoMelodia(List<Som> intervaloCromaticoMelodia) {
+		this.intervaloCromaticoMelodia = intervaloCromaticoMelodia;
 	}
 }
