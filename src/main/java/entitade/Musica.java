@@ -22,13 +22,14 @@ public class Musica {
 	private List<Som> intervaloCromaticoMelodia;
 	private Integer tempoPorCompasso;
 	private Integer qtdCompassos;
+	private boolean notasForaDaEscala;
 
 	public Musica(Escala escala, Integer tempo, Integer tempoPorCompasso, Integer qtdCompassos) {
-		this(escala, tempo, true, tempoPorCompasso, qtdCompassos);
+		this(escala, tempo, true, tempoPorCompasso, qtdCompassos, false);
 	}
 	
 	
-	public Musica(Escala escala, Integer tempo, boolean isArpegio, Som notaBase, Som notaMelodia,  Integer tempoPorCompasso, Integer qtdCompassos) {
+	public Musica(Escala escala, Integer tempo, boolean isArpegio, Som notaBase, Som notaMelodia,  Integer tempoPorCompasso, Integer qtdCompassos, boolean notasForaDaEscala) {
 		this.escala = escala;
 		this.melodia = new ArrayList<NotaTocada>();
 		this.acordes = new ArrayList<ListaNota>();
@@ -41,12 +42,15 @@ public class Musica {
 		this.tempo= tempo;
 		this.tempoPorCompasso = tempoPorCompasso;
 		this.qtdCompassos = qtdCompassos;
+		this.notasForaDaEscala = notasForaDaEscala;
 	}
-	public Musica(Escala escala, Integer tempo, boolean isArpegio,  Integer tempoPorCompasso, Integer qtdCompassos) {
+	
+	public Musica(Escala escala, Integer tempo, boolean isArpegio,  Integer tempoPorCompasso, Integer qtdCompassos, boolean notasForaDaEscala) {
 		this(escala, tempo, isArpegio, 
 				notaBase(escala, 3),
 				notaBase(escala, 5),
-				tempoPorCompasso, qtdCompassos);
+				tempoPorCompasso, qtdCompassos,
+				notasForaDaEscala);
 	}
 	private static Som notaBase(Escala escala, Integer local) {
 		return (Som.getList().stream().filter(s -> { return s.name().equals(escala.getI().name().toUpperCase()+local.toString()); }).findFirst().get());
@@ -141,5 +145,15 @@ public class Musica {
 
 	public void setIntervaloCromaticoMelodia(List<Som> intervaloCromaticoMelodia) {
 		this.intervaloCromaticoMelodia = intervaloCromaticoMelodia;
+	}
+
+
+	public boolean isNotasForaDaEscala() {
+		return notasForaDaEscala;
+	}
+
+
+	public void setNotasForaDaEscala(boolean notasForaDaEscala) {
+		this.notasForaDaEscala = notasForaDaEscala;
 	}
 }

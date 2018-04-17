@@ -16,7 +16,7 @@ public class AcordesAcao extends Acao{
 	@Override
 	public void executar(Musica musica) {
 		System.out.println("Acorde calculado: "+ this.acorde.getNome());
-		musica.getAcordes().add(acorde.getAcorde().getSetima());
+		musica.getAcordes().add(acorde.getAcorde().getTriade());
 		
 	}
 }

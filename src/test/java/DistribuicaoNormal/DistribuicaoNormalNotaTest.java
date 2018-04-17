@@ -5,20 +5,19 @@ import java.math.RoundingMode;
 import java.util.List;
 
 import acao.Probabilidade;
+import entitade.Musica;
 import entitade.escala.Escala;
 import entitade.escala.EscalaMaiorNatural;
 import entitade.nota.Nota;
 import entitade.nota.Som;
-import math.DistribuicaoNormal;
 
 public class DistribuicaoNormalNotaTest {
 	public static void main(String[] args) {
 		Som nota = Som.C4;
 		Nota tom = Nota.C;
 		Escala escala = new EscalaMaiorNatural(tom);
-		List<Som> intervalo = Som.intervalo(escala, nota);
-		List<Som> intervaloCromatico = Som.intervalo(intervalo.get(0), intervalo.get(intervalo.size() - 1));
-		List<Probabilidade<Som>> probabilidadeMelodia = Som.gerarProbabilidades(intervalo, intervaloCromatico, nota, escala, escala.getIV().acorde().getTriade());
+		Musica m = new Musica(escala, 40, 3, 2);
+		List<Probabilidade<Som>> probabilidadeMelodia = Som.gerarProbabilidades(m, nota, escala.getIV().acorde().getTriade());
 		
 		probabilidadeMelodia.forEach(p -> 
 		{

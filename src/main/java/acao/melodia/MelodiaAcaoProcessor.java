@@ -70,8 +70,8 @@ private Som getNota(Musica musica, List<NotaTocada> notas, ListaNota acordeCompa
 	} else {
 		ultimaNota = notas.get(notas.size() -1);
 	}
-	probabilidadeNotas = Som.gerarProbabilidades(musica.getIntervalo(), musica.getIntervaloCromaticoMelodia(),
-			ultimaNota.getNota(), musica.getEscala(),acordeCompasso);
+	probabilidadeNotas = Som.gerarProbabilidades(musica,
+			ultimaNota.getNota(),acordeCompasso);
 	for(Probabilidade<Som> p : probabilidadeNotas) {
 		somatoria += p.getChance();
 		if(chance <= somatoria) {

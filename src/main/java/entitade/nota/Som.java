@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 import Utils.Rand;
 import acao.Probabilidade;
+import entitade.Musica;
 import entitade.acorde.ListaNota;
 import entitade.escala.Escala;
 import jm.constants.Pitches;
@@ -216,19 +217,29 @@ public enum Som {
 		return pitch;
 	}
 	
-	private static Map<Som, Double> mapProbabilidade(List<Som> notas, List<Som> escalaCromatica, Som som, Escala escala, ListaNota acorde) {
+	private static Map<Som, Double> mapProbabilidade(Musica musica, Som som, ListaNota acorde) {
 		Map<Som, Double> probabilidadeEscala = new TreeMap<Som, Double>();
 		Double somatoria = 0.0;
 		double sValue = 1.00;
 		double sValueEscala = 1.03;
+		List<Som> notas = musica.getIntervalo();
+		List<Som> escalaCromatica = musica.getIntervaloCromaticoMelodia();
+		Escala escala = musica.getEscala();
 		
-		//soma probabilidade com base na distribuicao normal em relacao a ultima nota tocada
+		
+		
+		//inicializa o map de probabilidade
 		for(Som s : escalaCromatica) {
-			double valor = DistribuicaoNormal.getY(s.posicao.doubleValue(), som.posicao.doubleValue(), sValue) /2.5;
-			somatoria += valor;
-			probabilidadeEscala.put(s, valor);
+			probabilidadeEscala.put(s, 0.0);
 		}
-		
+		//soma probabilidade com base na distribuicao normal em relacao a ultima nota tocada
+		if(musica.isNotasForaDaEscala()) {
+			for(Som s : escalaCromatica) {
+				double valor = DistribuicaoNormal.getY(s.posicao.doubleValue(), som.posicao.doubleValue(), sValue) /2.5;
+				somatoria += valor;
+				probabilidadeEscala.put(s, probabilidadeEscala.get(s) +  valor);
+			}
+		}
 		//soma probabilidade nas notas pertencentes a escala
 		for(Som s : notas) {
 			double valor = DistribuicaoNormal.getY(s.posicao.doubleValue(), som.posicao.doubleValue(), sValueEscala);
@@ -268,13 +279,8 @@ public enum Som {
 		return probabilidadeEscala;
 	}
 	
-	public static Map<Som, Double> mapProbabilidade(List<Som> notas, Som som, Escala escala) {
-		List<Som> escalaCromatica = Som.getList().stream().filter(s ->  s.posicao >= notas.get(0).posicao && s.posicao <= notas.get(notas.size() -1).posicao).collect(Collectors.toList());
-		return mapProbabilidade(notas, escalaCromatica, som, escala, null);
-	}
-	
-	public static List<Probabilidade<Som>> gerarProbabilidades(List<Som> notas, List<Som> escalaCromatica, Som som, Escala escala, ListaNota acordeCompasso) {
-		Map<Som, Double> mapProbabilidade = mapProbabilidade(notas, escalaCromatica, som, escala, acordeCompasso);
+	public static List<Probabilidade<Som>> gerarProbabilidades(Musica musica, Som som, ListaNota acordeCompasso) {
+		Map<Som, Double> mapProbabilidade = mapProbabilidade(musica, som, acordeCompasso);
 		List<Probabilidade<Som>> probabilidades = new ArrayList<Probabilidade<Som>>();
 		mapProbabilidade.forEach((k, v) -> probabilidades.add(new Probabilidade<Som>(v, k)));
 		return probabilidades;

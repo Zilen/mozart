@@ -32,7 +32,6 @@ public class CromaticaAcao extends FraseAcao {
 		for(int i = 0; i < 20; i++) {
 			
 		}
-		Som.mapProbabilidade(musica.getIntervalo(), ultimaNota.getNota(), musica.getEscala());
 		
 		List<Probabilidade<Duracao>> duracaoProbabilidade = new ArrayList<Probabilidade<Duracao>>();
 		

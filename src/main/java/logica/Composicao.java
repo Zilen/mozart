@@ -33,19 +33,19 @@ public class Composicao {
 	Random random;
 	
 	public Composicao(Escala escala, Integer tempoPorCompasso, Integer qtdCompassos) {
-		musica = new Musica(escala, 20, false, tempoPorCompasso, qtdCompassos);
+		musica = new Musica(escala, 20, false, tempoPorCompasso, qtdCompassos, false);
 		random = Rand.get();
 	}
 	
 	//compor musica;
 	public Composicao compor() {
 		comporAcordes(musica.getQtdCompassos());
-		comporMelodia(musica.getQtdCompassos() * musica.getTempoPorCompasso());
+		comporMelodia();
 		return this;
 		
 	}
 
-	private void comporMelodia(int tempos) {
+	private void comporMelodia() {
 		System.out.println("Compondo Melodia");
 		new MelodiaAcaoProcessor(null).calcular(musica);
 	}
