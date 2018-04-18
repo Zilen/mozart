@@ -17,7 +17,7 @@ public class NotaTocada {
 	public NotaTocada(Som som) {
 		this.nota = som;
 		this.intensidade = Intensidade.FF;
-		this.duracao = Duracao.COLCHEIA;
+		this.duracao = Duracao.SEMINIMA;
 	}
 
 	public Som getNota() {

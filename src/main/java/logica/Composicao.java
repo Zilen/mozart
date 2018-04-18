@@ -9,7 +9,7 @@ import acao.acorde.AcordesAcaoProcessor;
 import acao.melodia.MelodiaAcaoProcessor;
 import entitade.Musica;
 import entitade.escala.Escala;
-import entitade.escala.EscalaMaiorNatural;
+import entitade.escala.EscalaCigana;
 import entitade.nota.Nota;
 import implementacao.JMusic;
 import regra.acorde.Regra1564;
@@ -18,14 +18,15 @@ import regra.acorde.Regra251;
 import regra.acorde.Regra71;
 import regra.acorde.RegraAcorde;
 import regra.acorde.RegraDiminuirChance7;
+import regra.acorde.RegraDiminuirChanceAcordeRepetido;
 
 public class Composicao {
 	
 	public static void main(String[] args) {
 		final Integer tempoPorCompasso = 4;
 		Integer qtdCompassos =20;
-		new Composicao(new EscalaMaiorNatural(Nota.C), tempoPorCompasso, qtdCompassos).compor().renderizar();
-//		new Composicao(new EscalaMenorNatural(Nota.Ds)).compor().renderizar();
+//		new Composicao(new EscalaMaiorNatural(Nota.C), tempoPorCompasso, qtdCompassos).compor().renderizar();
+		new Composicao(new EscalaCigana(Nota.Gs), tempoPorCompasso, qtdCompassos).compor().renderizar();
 	}
 	
 	
@@ -58,6 +59,7 @@ public class Composicao {
 		regras.add(new Regra1637());
 		regras.add(new Regra1564());
 		regras.add(new Regra71());
+		regras.add(new RegraDiminuirChanceAcordeRepetido());
 		new AcordesAcaoProcessor(regras).calcular(musica);
 //		musica.addAcode(musica.getEscala().getVI().acorde().getTriade());
 //		musica.addAcode(musica.getEscala().getIV().acorde().getTriade());

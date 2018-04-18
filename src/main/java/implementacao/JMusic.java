@@ -20,7 +20,7 @@ import jm.util.View;
 public class JMusic {
 	public static void render(Musica musica) {
 		
-		Part part = new Part();
+		Part part = new Part(80);
 		part.setTempo(musica.getTempo());
 		Random random  = Rand.get();
 		Phrase fraseMelodia = new Phrase(0);
