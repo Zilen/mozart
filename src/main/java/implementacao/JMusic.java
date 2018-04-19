@@ -20,7 +20,7 @@ import jm.util.View;
 public class JMusic {
 	public static void render(Musica musica) {
 		
-		Part part = new Part(80);
+		Part part = new Part();
 		part.setTempo(musica.getTempo());
 		Random random  = Rand.get();
 		Phrase fraseMelodia = new Phrase(0);
@@ -29,7 +29,12 @@ public class JMusic {
 		
 		//melodia
 		musica.getMelodia().forEach(m -> {
-			fraseMelodia.add(new Note(m.getNota().getFrequencia(),  m.getDuracao().getDuracao()));
+			
+			if((m.getNota().equals(Som.PAUSA))) {
+				fraseMelodia.add(new Note(Integer.MIN_VALUE,  m.getDuracao().getDuracao()));
+			} else {
+				fraseMelodia.add(new Note(m.getNota().getFrequencia(),  m.getDuracao().getDuracao()));
+			}
 		});  
 		
 		CPhrase cphraseAcordes = new CPhrase(0);

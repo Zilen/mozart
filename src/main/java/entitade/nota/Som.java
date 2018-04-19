@@ -17,6 +17,7 @@ import jm.constants.Pitches;
 import math.DistribuicaoNormal;
 
 public enum Som {
+	PAUSA(0.0 , (Nota)null, 0, Pitches.REST),
 	B0  (31.0  , Nota.B , 1,  Pitches.B0),
 	C1  (33.0  , Nota.C , 2, Pitches.C1 ),
 	CS1 (35.0  , Nota.Cs, 3,  Pitches.CS1),
@@ -209,7 +210,7 @@ public enum Som {
 			if  (s.posicao.equals(posicao))
 				return s;
 		}
-		throw new RuntimeException("não foi possivel encontrar som valor ["+posicao+"]");
+		throw new RuntimeException("nï¿½o foi possivel encontrar som valor ["+posicao+"]");
 	}
 	
 	
