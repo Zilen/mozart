@@ -12,13 +12,14 @@ import entitade.acorde.ListaNota;
 import entitade.nota.NotaTocada;
 import entitade.nota.Som;
 import regra.Regra;
+import regra.melodia.RegraMelodia;
 
 public class MelodiaAcaoProcessor extends AcaoProcessor<FraseAcao> {
 
 
-	public List<Regra> regras;
+	public List<Regra<RegraMelodia>> regras;
 
-	public MelodiaAcaoProcessor(List<Regra> regras) {
+	public MelodiaAcaoProcessor(List<Regra<RegraMelodia>> regras) {
 		this.regras = regras;
 	}
 
@@ -53,6 +54,11 @@ public class MelodiaAcaoProcessor extends AcaoProcessor<FraseAcao> {
 				duracao = p.get();
 				break;
 			}
+		}
+		//Se não é pausa, o acorde mudou e a nota tocada não pertence ao próximo acorde
+		if (!Som.PAUSA.equals(notaTocada) && !musica.getAcordeInTempo(tempo).equals(musica.getAcordeInTempo(tempo+duracao.getDuracao())) &&
+				musica.getAcordeInTempo(tempo+duracao.getDuracao()).getAcorde().getNona().pertenceAoAcorde(notaTocada)) {
+				duracao = getTempo(musica, notas, tempo, notaTocada, acordeCompasso);
 		}
 		return duracao;
 	}

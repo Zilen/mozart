@@ -62,4 +62,14 @@ public class Regra1564 extends RegraAcorde {
 		}
 	}
 
+	@Override
+	public Integer getPosicaoPrimeiro() {
+		return 1;
+	}
+
+	@Override
+	public Integer getQuantidadeRepeticoes() {
+		return 4;
+	}
+
 }

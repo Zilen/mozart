@@ -18,7 +18,7 @@ import jm.util.View;
 
 public class Ocarina {
 	public static void main(String[] args) {
-		Musica mu = new Musica(new EscalaMaiorNatural(Nota.C), 20, 4, 5);
+		Musica mu = new Musica(new EscalaMaiorNatural(Nota.C), 20, true, 4, 5, false);
 		mu.addNota(new NotaTocada(Som.G5, null, Duracao.SEMINIMA));
 		mu.addNota(new NotaTocada(Som.C5, null, Duracao.MINIMA));
 		mu.addNota(new NotaTocada(Som.DS5, null, Duracao.SEMINIMA));

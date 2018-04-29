@@ -24,4 +24,14 @@ public class RegraDiminuirChanceAcordeRepetido extends RegraAcorde {
 		
 		processor.removerChance(valorUltimoAcorde, acordesAcao, acordesAcao.get(valorUltimoAcorde).getChance() * 0.70);
 	}
+
+	@Override
+	public Integer getPosicaoPrimeiro() {
+		return null;
+	}
+
+	@Override
+	public Integer getQuantidadeRepeticoes() {
+		return null;
+	}
 }

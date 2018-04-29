@@ -72,10 +72,11 @@ public enum Nota {
 	}
 	
 	public Acorde acorde(Escala escala) {
-		if(this.acorde == null) {
+//		if(this.acorde == null) {
 			this.acorde =  AcordeBuilder.build(escala, this);
-		}
+//		}
 		return this.acorde;
+//		return AcordeBuilder.build(escala, this);
 	}
 	
 	public Acorde acorde() {

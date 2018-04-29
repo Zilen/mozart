@@ -35,4 +35,14 @@ public class Regra71 extends RegraAcorde {
 		}
 	}
 
+	@Override
+	public Integer getPosicaoPrimeiro() {
+		return 7;
+	}
+
+	@Override
+	public Integer getQuantidadeRepeticoes() {
+		return 2;
+	}
+
 }

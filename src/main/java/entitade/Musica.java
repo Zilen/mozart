@@ -24,11 +24,6 @@ public class Musica {
 	private Integer qtdCompassos;
 	private boolean notasForaDaEscala;
 
-	public Musica(Escala escala, Integer tempo, Integer tempoPorCompasso, Integer qtdCompassos) {
-		this(escala, tempo, true, tempoPorCompasso, qtdCompassos, false);
-	}
-	
-	
 	public Musica(Escala escala, Integer tempo, boolean isArpegio, Som notaBase, Som notaMelodia,  Integer tempoPorCompasso, Integer qtdCompassos, boolean notasForaDaEscala) {
 		this.escala = escala;
 		this.melodia = new ArrayList<NotaTocada>();
@@ -56,6 +51,10 @@ public class Musica {
 		return (Som.getList().stream().filter(s -> { return s.name().equals(escala.getI().name().toUpperCase()+local.toString()); }).findFirst().get());
 	}
 
+	//para o regraBuilder
+	public Musica(){
+		this.acordes = new ArrayList<ListaNota>();
+	};
 
 	public void addNota(NotaTocada nota) {
 		this.melodia.add(nota);

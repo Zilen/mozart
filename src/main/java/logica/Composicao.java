@@ -9,8 +9,9 @@ import acao.acorde.AcordesAcaoProcessor;
 import acao.melodia.MelodiaAcaoProcessor;
 import entitade.Musica;
 import entitade.escala.Escala;
-import entitade.escala.EscalaCigana;
+import entitade.escala.Escalas;
 import entitade.nota.Nota;
+import entitade.nota.Som;
 import implementacao.JMusic;
 import regra.acorde.Regra1564;
 import regra.acorde.Regra1637;
@@ -23,27 +24,32 @@ import regra.acorde.RegraDiminuirChanceAcordeRepetido;
 public class Composicao {
 	
 	public static void main(String[] args) {
+		System.setProperty("showAcorde", "true");
 		final Integer tempoPorCompasso = 4;
 		Integer qtdCompassos =20;
-//		new Composicao(new EscalaMaiorNatural(Nota.C), tempoPorCompasso, qtdCompassos).compor().renderizar();
-		new Composicao(new EscalaCigana(Nota.Gs), tempoPorCompasso, qtdCompassos).compor().renderizar();
+		Integer tempo = 30;
+		new Composicao(Escalas.MAIOR_NATURAL.get(Nota.C), tempoPorCompasso, qtdCompassos, tempo).compor().renderizar();
 	}
 	
 	
 	private Musica musica;
 	Random random;
 	
-	public Composicao(Escala escala, Integer tempoPorCompasso, Integer qtdCompassos) {
-		musica = new Musica(escala, 20, false, tempoPorCompasso, qtdCompassos, false);
+	public Composicao(Escala escala, Integer tempo, boolean isArpegio, Som notaBase, Som notaMelodia,  Integer tempoPorCompasso, Integer qtdCompassos, boolean notasForaDaEscala) {
+		musica = new Musica(escala, tempo, isArpegio, notaBase, notaMelodia, tempoPorCompasso, qtdCompassos, notasForaDaEscala);
+		random = Rand.get();
+	}
+	
+	public Composicao(Escala escala, Integer tempoPorCompasso, Integer qtdCompassos, Integer tempo) {
+		musica = new Musica(escala, tempo, false, tempoPorCompasso, qtdCompassos, false);
 		random = Rand.get();
 	}
 	
 	//compor musica;
 	public Composicao compor() {
-		comporAcordes(musica.getQtdCompassos());
+		comporAcordes();
 		comporMelodia();
 		return this;
-		
 	}
 
 	private void comporMelodia() {
@@ -51,7 +57,7 @@ public class Composicao {
 		new MelodiaAcaoProcessor(null).calcular(musica);
 	}
 
-	private void comporAcordes(int qtdAcordes) {
+	private void comporAcordes() {
 		System.out.println("Compondo Acordes");
 		List<RegraAcorde> regras = new ArrayList<RegraAcorde>();
 		regras.add(new RegraDiminuirChance7());

@@ -16,7 +16,7 @@ public class DistribuicaoNormalNotaTest {
 		Som nota = Som.C4;
 		Nota tom = Nota.C;
 		Escala escala = new EscalaMaiorNatural(tom);
-		Musica m = new Musica(escala, 40, 3, 2);
+		Musica m = new Musica(escala, 40, true, 3, 2, false);
 		List<Probabilidade<Som>> probabilidadeMelodia = Som.gerarProbabilidades(m, nota, escala.getIV().acorde().getTriade());
 		
 		probabilidadeMelodia.forEach(p -> 

@@ -22,4 +22,14 @@ public class RegraDiminuirChance7 extends RegraAcorde {
 	public void executar(List<AcordesAcao> acordesAcao, Musica musica, Integer iteration) {
 			processor.removerChance(0, acordesAcao, acordesAcao.get(0).getChance() * 0.70);
 		}
+
+	@Override
+	public Integer getPosicaoPrimeiro() {
+		return null;
+	}
+
+	@Override
+	public Integer getQuantidadeRepeticoes() {
+		return 1;
+	}
 }

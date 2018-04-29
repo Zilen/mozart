@@ -50,4 +50,14 @@ public class Regra251 extends RegraAcorde {
 		}
 	}
 
+	@Override
+	public Integer getPosicaoPrimeiro() {
+		return 2;
+	}
+
+	@Override
+	public Integer getQuantidadeRepeticoes() {
+		return 3;
+	}
+
 }
