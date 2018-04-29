@@ -16,6 +16,7 @@ public enum Duracao {
 	MINIMA(0.5),
 	SEMINIMA_AUMENTADA(0.125 + 0.25),
 	SEMINIMA(0.25),
+//	COLCHEIA_AUMENTADA(0.125 + 0.0625),
 	COLCHEIA(0.125),
 	SEMICOLCHEIA(0.0625),
 	FUSA(0.0313),
@@ -86,5 +87,15 @@ public enum Duracao {
 			d.atualizarChance(d.getChance() / somatoria);
 		}
 		return duracaoProbabilidade;
+	}
+	public static Duracao byDuracao(double tempo) {
+		Duracao duracao = null;
+		for(Duracao d : values()) {
+			if(d.getDuracao().equals(tempo)) {
+				duracao = d;
+				break;
+			}
+		}
+		return duracao;
 	}
 }

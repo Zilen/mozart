@@ -162,7 +162,11 @@ public enum Som {
 	}
 	
 	public static List<Som> intervalo(Escala escala, Som base) {
-		Double constante = 2.3;
+		return intervalo(escala, base, 2.3);
+	}
+	
+	public static List<Som> intervalo(Escala escala, Som base, Double intervaloConst) {
+		Double constante = intervaloConst;
 		return intervalo(escala, get(base.getFrequencia()/constante), get(base.getFrequencia()*(constante)));
 	}
 	public static List<Som> intervalo(Escala escala, Som inicio, Som fim) {

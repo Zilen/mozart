@@ -55,8 +55,11 @@ public class MelodiaAcaoProcessor extends AcaoProcessor<FraseAcao> {
 				break;
 			}
 		}
+		if(tempo+duracao.getDuracao() > musica.getTempoMusica()) {
+			duracao = Duracao.byDuracao(musica.getTempoMusica() - tempo);
+		} else
 		//Se não é pausa, o acorde mudou e a nota tocada não pertence ao próximo acorde
-		if (!Som.PAUSA.equals(notaTocada) && !musica.getAcordeInTempo(tempo).equals(musica.getAcordeInTempo(tempo+duracao.getDuracao())) &&
+		if (tempo+duracao.getDuracao() < musica.getTempoMusica() && !Som.PAUSA.equals(notaTocada) && !musica.getAcordeInTempo(tempo).equals(musica.getAcordeInTempo(tempo+duracao.getDuracao())) &&
 				musica.getAcordeInTempo(tempo+duracao.getDuracao()).getAcorde().getNona().pertenceAoAcorde(notaTocada)) {
 				duracao = getTempo(musica, notas, tempo, notaTocada, acordeCompasso);
 		}

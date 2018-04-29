@@ -45,6 +45,11 @@ public class Composicao {
 		random = Rand.get();
 	}
 	
+	public Composicao(Musica musica) {
+		this.musica = musica;
+		random = Rand.get();
+	}
+	
 	//compor musica;
 	public Composicao compor() {
 		comporAcordes();

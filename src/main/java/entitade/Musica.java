@@ -155,4 +155,29 @@ public class Musica {
 	public void setNotasForaDaEscala(boolean notasForaDaEscala) {
 		this.notasForaDaEscala = notasForaDaEscala;
 	}
+	
+	public Integer getTempoMusica() {
+		return this.getQtdCompassos() * this.getTempoPorCompasso();
+	}
+	
+	public void addParte(Musica parte) {
+		parte.getAcordes().forEach(a-> this.addAcode(a));
+		this.addNota(parte.getMelodia().toArray(new NotaTocada[parte.getMelodia().size()]));
+	}
+	
+	public Musica copyProperties(Musica musica) {
+		this.arpegio = musica.isArpegio();
+		this.escala = musica.getEscala();
+		this.intervalo = musica.getIntervalo();
+		this.intervaloBase = musica.getIntervaloBase();
+		this.intervaloCromaticoMelodia = musica.getIntervaloCromaticoMelodia();
+		this.notaBaseBaixo = musica.getNotaBaseBaixo();
+		this.notaBaseMelodia = musica.getNotaBaseMelodia();
+		this.notasForaDaEscala = musica.isNotasForaDaEscala();
+		this.qtdCompassos = musica.getQtdCompassos();
+		this.tempo = musica.getTempo();
+		this.tempoPorCompasso = musica.getTempoPorCompasso();
+		
+		return this;
+	}
 }
