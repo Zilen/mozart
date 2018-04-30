@@ -180,4 +180,8 @@ public class Musica {
 		
 		return this;
 	}
+
+	public void setAcordes(List<ListaNota> acordes) {
+		this.acordes = acordes;
+	}
 }
