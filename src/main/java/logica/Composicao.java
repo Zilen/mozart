@@ -22,34 +22,34 @@ import regra.acorde.RegraDiminuirChance7;
 import regra.acorde.RegraDiminuirChanceAcordeRepetido;
 
 public class Composicao {
-	
+
 	public static void main(String[] args) {
 		System.setProperty("showAcorde", "true");
-		final Integer tempoPorCompasso = 4;
+		final Integer tempoPorCompasso = 3;
 		Integer qtdCompassos =20;
 		Integer tempo = 30;
 		new Composicao(Escalas.MAIOR_NATURAL.get(Nota.C), tempoPorCompasso, qtdCompassos, tempo).compor().renderizar();
 	}
-	
-	
+
+
 	private Musica musica;
 	Random random;
-	
+
 	public Composicao(Escala escala, Integer tempo, boolean isArpegio, Som notaBase, Som notaMelodia,  Integer tempoPorCompasso, Integer qtdCompassos, boolean notasForaDaEscala) {
 		musica = new Musica(escala, tempo, isArpegio, notaBase, notaMelodia, tempoPorCompasso, qtdCompassos, notasForaDaEscala);
 		random = Rand.get();
 	}
-	
+
 	public Composicao(Escala escala, Integer tempoPorCompasso, Integer qtdCompassos, Integer tempo) {
 		musica = new Musica(escala, tempo, false, tempoPorCompasso, qtdCompassos, false);
 		random = Rand.get();
 	}
-	
+
 	public Composicao(Musica musica) {
 		this.musica = musica;
 		random = Rand.get();
 	}
-	
+
 	//compor musica;
 	public Composicao compor() {
 		comporAcordes();
@@ -77,8 +77,8 @@ public class Composicao {
 //		musica.addAcode(musica.getEscala().getI().acorde().getTriade());
 //		musica.addAcode(musica.getEscala().getV().acorde().getTriade());
 	}
-	
-	
+
+
 	//rederizar;
 	public Composicao renderizar() {
 		JMusic.render(this.musica);
