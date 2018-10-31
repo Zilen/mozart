@@ -24,10 +24,12 @@ public class Composicao {
 
 	public static void main(String[] args) {
 		System.setProperty("showAcorde", "true");
+		System.setProperty("showNota", "true");
 		final Integer tempoPorCompasso = 4;
 		Integer qtdCompassos =10;
-		Integer tempo = 20;
-		new Composicao(Escalas.MAIOR_NATURAL.get(Nota.C), tempoPorCompasso, qtdCompassos, tempo).compor().renderizar();
+		Integer tempo = 40;
+		boolean isArpegio = true;
+		new Composicao(Escalas.MAIOR_NATURAL.get(Nota.C), tempoPorCompasso, qtdCompassos, tempo, isArpegio).compor().renderizar();
 	}
 
 
@@ -39,8 +41,8 @@ public class Composicao {
 //		random = Rand.get();
 //	}
 
-	public Composicao(Escala escala, Integer tempoPorCompasso, Integer qtdCompassos, Integer tempo) {
-		musica = new Musica(escala, tempo, false, tempoPorCompasso, qtdCompassos, false);
+	public Composicao(Escala escala, Integer tempoPorCompasso, Integer qtdCompassos, Integer tempo, boolean isArpegio) {
+		musica = new Musica(escala, tempo, isArpegio, tempoPorCompasso, qtdCompassos, false);
 		random = Rand.get();
 	}
 
@@ -71,7 +73,7 @@ public class Composicao {
 		regras.add(new Regra71());
 		regras.add(new RegraDiminuirChanceAcordeRepetido());
 		new AcordesAcaoProcessor(regras).calcular(musica);
-		
+
 //		musica.addAcode(musica.getEscala().getVI().acorde().getTriade());
 //		musica.addAcode(musica.getEscala().getIV().acorde().getTriade());
 //		musica.addAcode(musica.getEscala().getI().acorde().getTriade());

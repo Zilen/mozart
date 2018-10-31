@@ -7,13 +7,13 @@ public class NotaTocada {
 	private Som nota;
 	private Intensidade intensidade;
 	private Duracao duracao;
-	
+
 	public NotaTocada(Som nota, Intensidade intensidade, Duracao duracao) {
 		this.nota = nota;
 		this.intensidade = intensidade;
 		this.duracao = duracao;
 	}
-	
+
 	public NotaTocada(Som som) {
 		this.nota = som;
 		this.intensidade = Intensidade.FF;
@@ -37,5 +37,10 @@ public class NotaTocada {
 	}
 	public void setDuracao(Duracao duracao) {
 		this.duracao = duracao;
+	}
+
+	@Override
+	public String toString() {
+		return getNota().name() + " - " + getDuracao().name();
 	}
 }

@@ -2,7 +2,6 @@ package regra;
 
 import java.util.List;
 
-import acao.Acao;
 import entitade.Musica;
 
 public interface Regra<TipoAcao> {

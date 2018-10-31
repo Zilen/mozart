@@ -43,7 +43,7 @@ public class JMusic {
 		if(musica.isArpegio()) {
 			Phrase f = new Phrase(0);
 			musica.getAcordes().forEach(a-> {
-				f.addNoteList(montarArpegio(a, intervaloBase));
+				f.addNoteList(montarArpegio(a, Som.intervalo(Som.A2, Som.A3)));
 			});
 			cphraseAcordes.addPhrase(f);
 		} else {
@@ -79,7 +79,7 @@ public class JMusic {
 	private static Duracao getDuracaoPorTempo(Integer tempoPorAcorde) {
 		Duracao retorno = null;
 		for(Duracao d : Duracao.values()) {
-			Double duracaoCalculada = d.getDuracao() * 4.0;
+			Double duracaoCalculada = d.getDuracaoReal();
 			if(duracaoCalculada.equals(tempoPorAcorde.doubleValue())) {
 				retorno = d;
 				break;

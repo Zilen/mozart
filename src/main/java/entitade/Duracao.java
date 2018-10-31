@@ -33,6 +33,10 @@ public enum Duracao {
 		return duracao;
 	}
 
+	public Double getDuracaoReal() {
+		return duracao * 4.0;
+	}
+
 	public static List<Probabilidade<Duracao>> gerarProbabilidades(NotaTocada ultimaNota, Musica musica, double tempo, Som notaTocada, ListaNota acordeCompasso) {
 		List<Duracao> duracoes = Arrays.asList(values());
 		List<Probabilidade<Duracao>> duracaoProbabilidade = new ArrayList<Probabilidade<Duracao>>(5);
@@ -68,7 +72,7 @@ public enum Duracao {
 			somatoria += valor;
 			iterator++;
 		}
-		
+
 		//caso nota nao pertença ao acorde, não segurar
 		if(!pertenceAoAcorde) {
 			somatoria = 0.0;

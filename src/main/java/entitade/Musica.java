@@ -23,6 +23,7 @@ public class Musica {
 	private Integer tempoPorCompasso;
 	private Integer qtdCompassos;
 	private boolean notasForaDaEscala;
+	private double tempoCalculadoAtual = 0;
 
 	public Musica(Escala escala, Integer tempo, boolean isArpegio, Som notaBase, Som notaMelodia,  Integer tempoPorCompasso, Integer qtdCompassos, boolean notasForaDaEscala) {
 		this.escala = escala;
@@ -39,9 +40,10 @@ public class Musica {
 		this.qtdCompassos = qtdCompassos;
 		this.notasForaDaEscala = notasForaDaEscala;
 	}
-	
+
+
 	public Musica(Escala escala, Integer tempo, boolean isArpegio,  Integer tempoPorCompasso, Integer qtdCompassos, boolean notasForaDaEscala) {
-		this(escala, tempo, isArpegio, 
+		this(escala, tempo, isArpegio,
 				notaBase(escala, 3),
 				notaBase(escala, 5),
 				tempoPorCompasso, qtdCompassos,
@@ -112,7 +114,7 @@ public class Musica {
 	public List<Som> getIntervaloBase() {
 		return intervaloBase;
 	}
-	
+
 	public ListaNota getAcordeInTempo(Double tempo) {
 		return this.acordes.get(this.getposicaoAcorde(tempo)-1);
 	}
@@ -155,16 +157,16 @@ public class Musica {
 	public void setNotasForaDaEscala(boolean notasForaDaEscala) {
 		this.notasForaDaEscala = notasForaDaEscala;
 	}
-	
+
 	public Integer getTempoMusica() {
 		return this.getQtdCompassos() * this.getTempoPorCompasso();
 	}
-	
+
 	public void addParte(Musica parte) {
 		parte.getAcordes().forEach(a-> this.addAcode(a));
 		this.addNota(parte.getMelodia().toArray(new NotaTocada[parte.getMelodia().size()]));
 	}
-	
+
 	public Musica copyProperties(Musica musica) {
 		this.arpegio = musica.isArpegio();
 		this.escala = musica.getEscala();
@@ -177,11 +179,37 @@ public class Musica {
 		this.qtdCompassos = musica.getQtdCompassos();
 		this.tempo = musica.getTempo();
 		this.tempoPorCompasso = musica.getTempoPorCompasso();
-		
+
 		return this;
 	}
 
 	public void setAcordes(List<ListaNota> acordes) {
 		this.acordes = acordes;
+	}
+
+	public double getTempoCalculadoAtual() {
+		return tempoCalculadoAtual;
+	}
+
+	public void updateTempoCalculadoAtual(double tempoAAdicionar) {
+		this.tempoCalculadoAtual += tempoAAdicionar;
+	}
+
+	public List<NotaTocada> getNotasInCompasso() {
+		List<NotaTocada> notasNoAcorde = new ArrayList<NotaTocada>();
+		Double tempoInicialCompasso = ((Integer)(this.getposicaoAcorde(this.getTempoCalculadoAtual()) * this.getTempoPorCompasso())).doubleValue();
+
+		double tempo = 0;
+		for(NotaTocada nota : this.getMelodia()) {
+			tempo += nota.getDuracao().getDuracaoReal();
+			if(tempo > tempoInicialCompasso) {
+				notasNoAcorde.add(nota);
+			}
+		}
+		return notasNoAcorde;
+	}
+
+	public NotaTocada getUltimaNota() {
+		return this.getMelodia().get(this.getMelodia().size() -1);
 	}
 }

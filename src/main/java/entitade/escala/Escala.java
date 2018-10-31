@@ -33,7 +33,7 @@ public abstract class Escala {
 		this.popularAcordes();
 		this.notaAcordeList.forEach(n -> {
 			if(n.acorde().getPosicaoEscala() == 1) {
-				this.acordesAcaoList.add(new AcordesAcao(1.0, n.acorde().getTriade()));	
+				this.acordesAcaoList.add(new AcordesAcao(1.0, n.acorde().getTriade()));
 			} else {
 				this.acordesAcaoList.add(new AcordesAcao(0.0, n.acorde().getTriade()));
 			}
@@ -88,19 +88,19 @@ public abstract class Escala {
 	public List<Nota> getNotas() {
 		return this.notas;
 	}
-	
+
 	public List<Acorde> getAcordes() {
 		if(this.acordes == null) {
 			this.acordes = new ArrayList<Acorde>(7);
-			this.notas.forEach(n -> { 
+			this.notas.forEach(n -> {
 				Acorde a = AcordeBuilder.build(this, n);
-				this.acordes.add(a); 
+				this.acordes.add(a);
 				this.putOnNotaAcordeList(n, a);
 			});
 		}
 		return this.acordes;
 	}
-	
+
 	private void putOnNotaAcordeList(Nota n, Acorde a) {
 		for(NotaAcorde notaAcorde : notaAcordeList) {
 			if(notaAcorde.nota().equals(n)) {
@@ -123,18 +123,18 @@ public abstract class Escala {
 	}
 
 	public Nota relativa(Nota nota, int posicaoRelativa) {
-		Integer posicao = (nota.getPosicaoNaEscala() + posicaoRelativa -2); 
+		Integer posicao = (nota.getPosicaoNaEscala() + posicaoRelativa -2);
 		if (posicao >= 7) {
 			posicao %= 7;
 		}
 		return notas.get(posicao);
 	};
-	
+
 	private Escala popularAcordes() {
 		this.getNotas().forEach(n -> this.putOnNotaAcordeList(n, AcordeBuilder.build(this, n)));
 		return this;
 	}
-	
+
 	public boolean pertence(Som s) {
 		return this.getNotas().stream().anyMatch(n -> n.equals(s.getNota()));
 	}
@@ -142,7 +142,7 @@ public abstract class Escala {
 	public List<AcordesAcao> getAcordesAcaoList() {
 		return acordesAcaoList;
 	}
-	
+
 	public abstract String getNome();
 
 	public class NotaAcorde {
