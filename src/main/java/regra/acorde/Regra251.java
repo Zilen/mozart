@@ -12,7 +12,7 @@ import entitade.nota.Nota;
 public class Regra251 extends RegraAcorde {
 
 
-	private Escala nomeEscala = new EscalaMaiorNatural(Nota.C);
+	private Escala nomeEscala = new EscalaMaiorNatural(null);
 	
 	@Override
 	public Boolean isValid(List<AcordesAcao> acordesAcao, Musica musica, Integer iteration) {

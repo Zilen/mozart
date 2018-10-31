@@ -1,7 +1,6 @@
 package entitade.nota;
 
 import entitade.acorde.Acorde;
-import entitade.acorde.AcordeBuilder;
 import entitade.escala.Escala;
 
 public enum Nota {
@@ -21,14 +20,12 @@ public enum Nota {
 	private Integer posicao;
 	private String nome;
 	private Integer posicaoNaEscala;
-	private Acorde acorde;
 	private String cifra;
 	
 	private Nota(Integer posicao, String nome, String cifra) {
 		this.posicao = posicao;
 		this.nome = nome;
 		this.posicaoNaEscala = null;
-		this.acorde = null;
 		this.cifra = cifra;
 	}
 	
@@ -71,19 +68,6 @@ public enum Nota {
 		return this;
 	}
 	
-	public Acorde acorde(Escala escala) {
-//		if(this.acorde == null) {
-			this.acorde =  AcordeBuilder.build(escala, this);
-//		}
-		return this.acorde;
-//		return AcordeBuilder.build(escala, this);
-	}
-	
-	public Acorde acorde() {
-		return this.acorde;
-	}
-
-
 	public String getCifra() {
 		return cifra;
 	}

@@ -48,7 +48,7 @@ public class Musica {
 				notasForaDaEscala);
 	}
 	private static Som notaBase(Escala escala, Integer local) {
-		return (Som.getList().stream().filter(s -> { return s.name().equals(escala.getI().name().toUpperCase()+local.toString()); }).findFirst().get());
+		return (Som.getList().stream().filter(s -> { return s.name().equals(escala.getI().nota().name().toUpperCase()+local.toString()); }).findFirst().get());
 	}
 
 	//para o regraBuilder

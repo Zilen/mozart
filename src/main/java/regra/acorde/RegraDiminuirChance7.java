@@ -10,7 +10,7 @@ import entitade.nota.Nota;
 
 public class RegraDiminuirChance7 extends RegraAcorde {
 
-	private Escala nomeEscala = new EscalaMaiorNatural(Nota.C);
+	private Escala nomeEscala = new EscalaMaiorNatural(null);
 	
 	@Override
 	public Boolean isValid(List<AcordesAcao> acordesAcao, Musica musica, Integer iteration) {

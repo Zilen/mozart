@@ -41,7 +41,7 @@ public class AcordeBuilder {
 		sus.forEach(n -> {sus7.add(n);});
 		sus7.add(escala.relativa(nota, 7));
 		sus.add(escala.relativa(nota, 5));
-		
+		System.out.println(triade);
 		return  new Acorde(escala, nota, triade, setima, sexta, nona, decimaTerceira, sus, sus7, tipoAcorde, posicao);
 	}
 	

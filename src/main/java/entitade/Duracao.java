@@ -11,6 +11,8 @@ import entitade.nota.Som;
 import math.DistribuicaoNormal;
 
 public enum Duracao {
+	BREVE(2.0),
+	SEMIBREVE_AUMENTADA(1.5),
 	SEMIBREVE(1.0),
 	MINIMA_AUMENTADA(0.5 + 0.25),
 	MINIMA(0.5),
@@ -48,6 +50,8 @@ public enum Duracao {
 		for(Duracao d : duracoes) {
 			Double valor = DistribuicaoNormal.getY(iterator.doubleValue(), posicaoUltimaDuracao > 5.0 ? 5.0 : posicaoUltimaDuracao.doubleValue(), s);
 			switch (d) {
+			case BREVE:
+			case SEMIBREVE_AUMENTADA:
 			case SEMIFUSA:
 			case FUSA:
 				valor = 0.0;
@@ -70,6 +74,8 @@ public enum Duracao {
 			somatoria = 0.0;
 			for(Probabilidade<Duracao> d : duracaoProbabilidade) {
 				switch(d.get()) {
+				case BREVE:
+				case SEMIBREVE_AUMENTADA:
 				case SEMIBREVE:
 				case MINIMA:
 				case SEMINIMA_AUMENTADA:

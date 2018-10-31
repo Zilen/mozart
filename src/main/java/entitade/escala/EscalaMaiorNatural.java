@@ -10,7 +10,7 @@ public class EscalaMaiorNatural extends Escala {
 
 	@Override
 	protected Nota getToII() {
-		return Nota.tom(getI());
+		return Nota.tom(getI().nota());
 	}
 
 	@Override
