@@ -13,25 +13,25 @@ import entitade.nota.Som;
 
 public class DistribuicaoNormalNotaTest {
 	public static void main(String[] args) {
-		Som nota = Som.C4;
-		Nota tom = Nota.C;
+		Som nota = Som.FS4;
+		Nota tom = Nota.D;
 		Escala escala = new EscalaMaiorNatural(tom);
 		Musica m = new Musica(escala, 40, true, 3, 2, false);
 		List<Probabilidade<Som>> probabilidadeMelodia = Som.gerarProbabilidades(m, nota, escala.getIV().acorde().getTriade());
-		
-		probabilidadeMelodia.forEach(p -> 
+
+		probabilidadeMelodia.forEach(p ->
 		{
-			System.out.println(p.get()+"@"+round(p.getChance(),4));	
+			System.out.println(p.get()+"@"+round(p.getChance(),4));
 		});
-//		
+//
 //		System.out.println("--------");
-//		
+//
 //		for (Double i = 25.0; i < 50; i++) {
 //			System.out.println(i+"@"+round(DistribuicaoNormal.getY(i, 38.0, 0.9), 4));
 //		}
-		
+
 	}
-	
+
 	public static String round(double value, int places) {
 	    if (places < 0) throw new IllegalArgumentException();
 

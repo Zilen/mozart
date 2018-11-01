@@ -108,4 +108,15 @@ public enum Duracao {
 		}
 		return duracao;
 	}
+
+	public static Duracao getByDuracaoReal(double duracaoReal) {
+		Duracao duracao = null;
+		for (Duracao d : values()) {
+			if (d.getDuracaoReal().equals(duracaoReal)) {
+				duracao = d;
+				break;
+			}
+		}
+		return duracao;
+	}
 }

@@ -121,7 +121,7 @@ public class Musica {
 	public ListaNota getAcordeInTempo(Integer tempo) {
 		return this.getAcordeInTempo(tempo.doubleValue());
 	}
-	private int getposicaoAcorde(double tempo) {
+	public int getposicaoAcorde(double tempo) {
 		if(tempo < this.getTempoPorCompasso().doubleValue()) {
 			return 1;
 		} else {
@@ -197,7 +197,7 @@ public class Musica {
 
 	public List<NotaTocada> getNotasInCompasso() {
 		List<NotaTocada> notasNoAcorde = new ArrayList<NotaTocada>();
-		Double tempoInicialCompasso = ((Integer)(this.getposicaoAcorde(this.getTempoCalculadoAtual()) * this.getTempoPorCompasso())).doubleValue();
+		Double tempoInicialCompasso = this.getTempoInicioCompassoAtual();
 
 		double tempo = 0;
 		for(NotaTocada nota : this.getMelodia()) {
@@ -211,5 +211,9 @@ public class Musica {
 
 	public NotaTocada getUltimaNota() {
 		return this.getMelodia().get(this.getMelodia().size() -1);
+	}
+
+	public double getTempoInicioCompassoAtual() {
+		return ((Integer)(this.getposicaoAcorde(this.getTempoCalculadoAtual()) * this.getTempoPorCompasso())).doubleValue();
 	}
 }

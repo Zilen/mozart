@@ -1,9 +1,11 @@
 package acao.melodia;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 
 import regra.Regra;
+import regra.melodia.RegraMelodia;
 import Utils.Rand;
 import acao.AcaoProcessor;
 import acao.Probabilidade;
@@ -16,9 +18,9 @@ import entitade.nota.Som;
 public class MelodiaAcaoProcessor extends AcaoProcessor<Probabilidade<NotaTocada>> {
 
 
-	public List<Regra<Probabilidade<NotaTocada>>> regras;
+	public List<RegraMelodia> regras;
 
-	public MelodiaAcaoProcessor(List<Regra<Probabilidade<NotaTocada>>> regras) {
+	public MelodiaAcaoProcessor(List<RegraMelodia> regras) {
 		this.regras = regras;
 	}
 
@@ -30,8 +32,8 @@ public class MelodiaAcaoProcessor extends AcaoProcessor<Probabilidade<NotaTocada
 			List<Probabilidade<NotaTocada>> probabilidades = gerarProbabilidadeDefault(musica, notas);
 
 			if(regras != null) {
-				for(Regra<Probabilidade<NotaTocada>>regra : this.regras) {
-					regra.isValid(probabilidades, musica, i++);
+				for(RegraMelodia regra : this.regras) {
+					regra.validarExecutar(probabilidades, musica, i++, notas);
 				}
 			}
 			notas.add(escolherNota(probabilidades, notas, musica));
@@ -41,6 +43,12 @@ public class MelodiaAcaoProcessor extends AcaoProcessor<Probabilidade<NotaTocada
 
 	private NotaTocada escolherNota(
 			List<Probabilidade<NotaTocada>> probabilidadeNotas, List<NotaTocada> notas, Musica musica) {
+
+		//TODO modificar Double para BigDecimal
+		if(probabilidadeNotas.stream().mapToDouble(i -> i.getChance()).sum() > 1.00000000000001) {
+			throw new InvalidParameterException("Somatoria de probabilidades ultrapassa 100,000000000001% - "+probabilidadeNotas.stream().mapToDouble(i -> i.getChance()).sum());
+		}
+
 		ListaNota acordeCompasso = musica.getAcordeInTempo(musica.getTempoCalculadoAtual());
 		NotaTocada ultimaNota = null;
 		NotaTocada nota = null;
@@ -80,33 +88,6 @@ public class MelodiaAcaoProcessor extends AcaoProcessor<Probabilidade<NotaTocada
 			for(Duracao d : Duracao.values()) {
 
 				double chance = som.getChance();
-				if(acordeCompasso.pertenceAoAcorde(som.get())) {
-				} else {
-					switch(d) {
-					case BREVE:
-					case SEMIBREVE_AUMENTADA:
-					case SEMIBREVE:
-					case MINIMA_AUMENTADA:
-					case MINIMA:
-					case SEMINIMA_AUMENTADA:
-						chance = 0.0;
-						break;
-					case SEMINIMA:
-					case COLCHEIA:
-					case SEMICOLCHEIA:
-					case FUSA:
-					case SEMIFUSA:
-						break;
-					}
-				}
-
-				switch(d) {
-				case BREVE:
-				case SEMIBREVE_AUMENTADA:
-				case FUSA:
-				case SEMIFUSA:
-					chance = 0;
-				}
 
 				chanceTotal += chance;
 				mapaDefault.add(new Probabilidade<NotaTocada>(chance, new NotaTocada(som.get(), null, d)));

@@ -1,17 +1,11 @@
 package logica;
 
+import implementacao.JMusic;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import Utils.Rand;
-import acao.acorde.AcordesAcaoProcessor;
-import acao.melodia.MelodiaAcaoProcessor;
-import entitade.Musica;
-import entitade.escala.Escala;
-import entitade.escala.Escalas;
-import entitade.nota.Nota;
-import implementacao.JMusic;
 import regra.acorde.Regra1564;
 import regra.acorde.Regra1637;
 import regra.acorde.Regra251;
@@ -19,6 +13,17 @@ import regra.acorde.Regra71;
 import regra.acorde.RegraAcorde;
 import regra.acorde.RegraDiminuirChance7;
 import regra.acorde.RegraDiminuirChanceAcordeRepetido;
+import regra.melodia.RegraDiminuirChancesDuracao;
+import regra.melodia.RegraMelodia;
+import regra.melodia.RegraNovoAcordeNovaNota;
+import Utils.Rand;
+import acao.acorde.AcordesAcaoProcessor;
+import acao.melodia.MelodiaAcaoProcessor;
+import entitade.Duracao;
+import entitade.Musica;
+import entitade.escala.Escala;
+import entitade.escala.Escalas;
+import entitade.nota.Nota;
 
 public class Composicao {
 
@@ -27,8 +32,8 @@ public class Composicao {
 		System.setProperty("showNota", "true");
 		final Integer tempoPorCompasso = 4;
 		Integer qtdCompassos =10;
-		Integer tempo = 40;
-		boolean isArpegio = true;
+		Integer tempo = 20;
+		boolean isArpegio = false;
 		new Composicao(Escalas.MAIOR_NATURAL.get(Nota.C), tempoPorCompasso, qtdCompassos, tempo, isArpegio).compor().renderizar();
 	}
 
@@ -60,7 +65,15 @@ public class Composicao {
 
 	private void comporMelodia() {
 		System.out.println("Compondo Melodia");
-		new MelodiaAcaoProcessor(null).calcular(musica);
+		List<RegraMelodia> regras = new ArrayList<RegraMelodia>();
+		regras.add(new RegraNovoAcordeNovaNota());
+		regras.add(new RegraDiminuirChancesDuracao(0.0, Duracao.BREVE));
+		regras.add(new RegraDiminuirChancesDuracao(0.0, Duracao.SEMIBREVE_AUMENTADA));
+		regras.add(new RegraDiminuirChancesDuracao(0.0, Duracao.FUSA));
+		regras.add(new RegraDiminuirChancesDuracao(0.0, Duracao.SEMIFUSA));
+		regras.add(new RegraDiminuirChancesDuracao(0.0, Duracao.SEMICOLCHEIA));
+
+		new MelodiaAcaoProcessor(regras).calcular(musica);
 	}
 
 	private void comporAcordes() {
