@@ -7,14 +7,19 @@ import entitade.Duracao;
 import entitade.Musica;
 import entitade.nota.NotaTocada;
 
-public class RegraDiminuirChancesDuracao extends RegraMelodiaMultiplicador {
+public class RegraDiminuirDuracaoNotaForaDoAcorde extends RegraMelodiaMultiplicador {
 
-	private Duracao duracao;
+	private double multiplicador = 0.50;
+	private Duracao maiorDuracao;
 
-	public RegraDiminuirChancesDuracao(double multiplicador, Duracao duracao) {
+	public RegraDiminuirDuracaoNotaForaDoAcorde(Duracao maiorDuracao) {
+		super(0.5);
+		this.maiorDuracao = maiorDuracao;
+	}
+	public RegraDiminuirDuracaoNotaForaDoAcorde(double multiplicador, Duracao maiorDuracao) {
 		super(multiplicador);
 		this.multiplicador = multiplicador;
-		this.duracao = duracao;
+		this.maiorDuracao = maiorDuracao;
 	}
 
 	@Override
@@ -27,8 +32,8 @@ public class RegraDiminuirChancesDuracao extends RegraMelodiaMultiplicador {
 	public void executar(List<Probabilidade<NotaTocada>> acao, Musica musica,
 			Integer iteration) {
 		for(Probabilidade<NotaTocada> a : acao) {
-			if (a.get().getDuracao().equals(duracao))
-			a.multiplicarChance(multiplicador);
+			if (a.get().getDuracao().getDuracao() < maiorDuracao.getDuracao())
+				a.multiplicarChance(multiplicador);
 		}
 	}
 

@@ -35,7 +35,6 @@ public abstract class Acao {
 
 	public void multiplicarChance(Double multiplicador) {
 		this.chance *= multiplicador;
-		this.checkChance();
 	}
 
 	private void checkChance() {

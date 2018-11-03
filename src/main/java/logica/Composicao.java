@@ -14,6 +14,8 @@ import regra.acorde.RegraAcorde;
 import regra.acorde.RegraDiminuirChance7;
 import regra.acorde.RegraDiminuirChanceAcordeRepetido;
 import regra.melodia.RegraDiminuirChancesDuracao;
+import regra.melodia.RegraDiminuirChancesNotaForaDoAcorde;
+import regra.melodia.RegraDiminuirDuracaoNotaForaDoAcorde;
 import regra.melodia.RegraMelodia;
 import regra.melodia.RegraNovoAcordeNovaNota;
 import Utils.Rand;
@@ -71,7 +73,12 @@ public class Composicao {
 		regras.add(new RegraDiminuirChancesDuracao(0.0, Duracao.SEMIBREVE_AUMENTADA));
 		regras.add(new RegraDiminuirChancesDuracao(0.0, Duracao.FUSA));
 		regras.add(new RegraDiminuirChancesDuracao(0.0, Duracao.SEMIFUSA));
-		regras.add(new RegraDiminuirChancesDuracao(0.0, Duracao.SEMICOLCHEIA));
+		regras.add(new RegraDiminuirChancesDuracao(0.33, Duracao.SEMICOLCHEIA));
+		regras.add(new RegraDiminuirChancesDuracao(0.62, Duracao.SEMIBREVE));
+		
+		regras.add(new RegraDiminuirChancesNotaForaDoAcorde(0.3));
+
+		regras.add(new RegraDiminuirDuracaoNotaForaDoAcorde(0.0, Duracao.COLCHEIA));
 
 		new MelodiaAcaoProcessor(regras).calcular(musica);
 	}

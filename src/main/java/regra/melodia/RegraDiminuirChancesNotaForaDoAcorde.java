@@ -3,18 +3,20 @@ package regra.melodia;
 import java.util.List;
 
 import acao.Probabilidade;
-import entitade.Duracao;
 import entitade.Musica;
+import entitade.acorde.ListaNota;
 import entitade.nota.NotaTocada;
 
-public class RegraDiminuirChancesDuracao extends RegraMelodiaMultiplicador {
+public class RegraDiminuirChancesNotaForaDoAcorde extends RegraMelodiaMultiplicador {
 
-	private Duracao duracao;
 
-	public RegraDiminuirChancesDuracao(double multiplicador, Duracao duracao) {
+	public RegraDiminuirChancesNotaForaDoAcorde() {
+		super(0.5);
+	}
+
+	public RegraDiminuirChancesNotaForaDoAcorde(double multiplicador) {
 		super(multiplicador);
 		this.multiplicador = multiplicador;
-		this.duracao = duracao;
 	}
 
 	@Override
@@ -26,9 +28,10 @@ public class RegraDiminuirChancesDuracao extends RegraMelodiaMultiplicador {
 	@Override
 	public void executar(List<Probabilidade<NotaTocada>> acao, Musica musica,
 			Integer iteration) {
+		ListaNota acorde = musica.getAcordeInTempo(musica.getTempoPorCompasso());
 		for(Probabilidade<NotaTocada> a : acao) {
-			if (a.get().getDuracao().equals(duracao))
-			a.multiplicarChance(multiplicador);
+			if (!acorde.contains(a.get().getNota().getNota()))
+				a.multiplicarChance(multiplicador);
 		}
 	}
 
