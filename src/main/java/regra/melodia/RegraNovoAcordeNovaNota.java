@@ -8,21 +8,19 @@ import entitade.Duracao;
 import entitade.Musica;
 import entitade.nota.NotaTocada;
 
-public class RegraNovoAcordeNovaNota extends RegraMelodia {
+public class RegraNovoAcordeNovaNota extends RegraMelodiaMultiplicador {
 
-	private double multiplicador = 0.50;
 	private double tempoAtual;
 	private double tempoMaximoIncremental = 0.5;
 
 	public RegraNovoAcordeNovaNota(double multiplicador, double tempoAtual,
 			double tempoMaximoIncremental) {
-		super();
-		this.multiplicador = multiplicador;
+		super(multiplicador);
 		this.tempoAtual = tempoAtual;
 		this.tempoMaximoIncremental = tempoMaximoIncremental;
 	}
 	public RegraNovoAcordeNovaNota() {
-		super();
+		super(0.5);
 	}
 
 	@Override
@@ -48,7 +46,6 @@ public class RegraNovoAcordeNovaNota extends RegraMelodia {
 			}
 		}
 
-		Duracao duracao = Duracao.getByDuracaoReal(tempoAtual);
 		for(Probabilidade<NotaTocada> a : acao) {
 			if (duracoesASeremReduzidas.contains(a.get().getDuracao()))
 			a.multiplicarChance(multiplicador);

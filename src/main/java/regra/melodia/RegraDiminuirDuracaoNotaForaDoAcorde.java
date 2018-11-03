@@ -9,7 +9,6 @@ import entitade.nota.NotaTocada;
 
 public class RegraDiminuirDuracaoNotaForaDoAcorde extends RegraMelodiaMultiplicador {
 
-	private double multiplicador = 0.50;
 	private Duracao maiorDuracao;
 
 	public RegraDiminuirDuracaoNotaForaDoAcorde(Duracao maiorDuracao) {
@@ -18,7 +17,6 @@ public class RegraDiminuirDuracaoNotaForaDoAcorde extends RegraMelodiaMultiplica
 	}
 	public RegraDiminuirDuracaoNotaForaDoAcorde(double multiplicador, Duracao maiorDuracao) {
 		super(multiplicador);
-		this.multiplicador = multiplicador;
 		this.maiorDuracao = maiorDuracao;
 	}
 

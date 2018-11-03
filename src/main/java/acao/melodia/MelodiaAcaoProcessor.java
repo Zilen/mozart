@@ -4,16 +4,16 @@ import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 
-import regra.Regra;
-import regra.melodia.RegraMelodia;
 import Utils.Rand;
 import acao.AcaoProcessor;
 import acao.Probabilidade;
 import entitade.Duracao;
 import entitade.Musica;
 import entitade.acorde.ListaNota;
+import entitade.nota.Melodia;
 import entitade.nota.NotaTocada;
 import entitade.nota.Som;
+import regra.melodia.RegraMelodia;
 
 public class MelodiaAcaoProcessor extends AcaoProcessor<Probabilidade<NotaTocada>> {
 
@@ -25,7 +25,7 @@ public class MelodiaAcaoProcessor extends AcaoProcessor<Probabilidade<NotaTocada
 	}
 
 	public void calcular(Musica musica) {
-		List<NotaTocada> notas = new ArrayList<NotaTocada>();
+		Melodia notas = new Melodia();
 		while (musica.getTempoCalculadoAtual() < musica.getTempoPorCompasso() * musica.getQtdCompassos()) {
 			int i = 0;
 
@@ -36,12 +36,12 @@ public class MelodiaAcaoProcessor extends AcaoProcessor<Probabilidade<NotaTocada
 					regra.validarExecutar(probabilidades, musica, i++, notas);
 				}
 			}
-			notas.add(escolherNota(probabilidades, notas, musica));
+			notas.addNota(escolherNota(probabilidades, notas, musica), musica);
 		}
 		musica.addNotas(notas);
 	}
 
-	private NotaTocada escolherNota(
+	public static NotaTocada escolherNota(
 			List<Probabilidade<NotaTocada>> probabilidadeNotas, List<NotaTocada> notas, Musica musica) {
 
 		//TODO modificar Double para BigDecimal
@@ -73,7 +73,6 @@ public class MelodiaAcaoProcessor extends AcaoProcessor<Probabilidade<NotaTocada
 			System.out.println("Nota calculada: "+ nota.toString());
 		}
 
-		musica.updateTempoCalculadoAtual(nota.getDuracao().getDuracaoReal());
 		return nota;
 	}
 
@@ -116,7 +115,7 @@ private List<Probabilidade<Som>> getNotaProbabiliade(Musica musica, List<NotaToc
 			ultimaNota.getNota(),acordeCompasso);
 	return probabilidadeNotas;
 }
-private boolean naoPertenceAoAcorde(ListaNota acordeCompasso, Som notaTocada) {
+private static boolean naoPertenceAoAcorde(ListaNota acordeCompasso, Som notaTocada) {
 	return !acordeCompasso.stream().anyMatch(a -> a.equals(notaTocada.getNota()));
 }
 

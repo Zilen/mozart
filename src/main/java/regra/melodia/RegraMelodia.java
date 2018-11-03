@@ -3,11 +3,12 @@ package regra.melodia;
 import java.util.ArrayList;
 import java.util.List;
 
-import regra.Regra;
 import acao.AcaoProcessor;
 import acao.Probabilidade;
 import entitade.Musica;
+import entitade.nota.Melodia;
 import entitade.nota.NotaTocada;
+import regra.Regra;
 
 public abstract class RegraMelodia implements Regra<Probabilidade<NotaTocada>> {
 
@@ -22,7 +23,7 @@ public abstract class RegraMelodia implements Regra<Probabilidade<NotaTocada>> {
 	}
 
 	protected AcaoProcessor<Probabilidade<NotaTocada>> processor;
-	private List<NotaTocada> notas;
+	private Melodia notas;
 	private Musica musica;
 
 	public AcaoProcessor<Probabilidade<NotaTocada>> getProcessor() {
@@ -34,7 +35,7 @@ public abstract class RegraMelodia implements Regra<Probabilidade<NotaTocada>> {
 	}
 
 	public void validarExecutar(List<Probabilidade<NotaTocada>> acao, Musica musica,
-			Integer iteration, List<NotaTocada> notas) {
+			Integer iteration, Melodia notas) {
 		this.notas = notas;
 		if(this.isValid(acao, musica, iteration)) {
 			this.executar(acao, musica, iteration);

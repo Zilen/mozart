@@ -11,18 +11,18 @@ import entitade.nota.Som;
 import math.DistribuicaoNormal;
 
 public enum Duracao {
-	BREVE(2.0),
-	SEMIBREVE_AUMENTADA(1.5),
-	SEMIBREVE(1.0),
-	MINIMA_AUMENTADA(0.5 + 0.25),
-	MINIMA(0.5),
-	SEMINIMA_AUMENTADA(0.125 + 0.25),
-	SEMINIMA(0.25),
-//	COLCHEIA_AUMENTADA(0.125 + 0.0625),
-	COLCHEIA(0.125),
+	SEMIFUSA(0.015625),
+	FUSA(0.03125),
 	SEMICOLCHEIA(0.0625),
-	FUSA(0.0313),
-	SEMIFUSA(0.015625);
+	COLCHEIA(0.125),
+//	COLCHEIA_AUMENTADA(0.125 + 0.0625),
+	SEMINIMA(0.25),
+	SEMINIMA_AUMENTADA(0.125 + 0.25),
+	MINIMA(0.5),
+	MINIMA_AUMENTADA(0.5 + 0.25),
+	SEMIBREVE(1.0),
+	SEMIBREVE_AUMENTADA(1.5),
+	BREVE(2.0);
 
 
 	private Double duracao;
@@ -109,14 +109,25 @@ public enum Duracao {
 		return duracao;
 	}
 
-	public static Duracao getByDuracaoReal(double duracaoReal) {
-		Duracao duracao = null;
+	public static List<Duracao> getByDuracaoReal(Double duracaoReal) {
+		List<Duracao> duracoesAnteriores = null;
+		List<Duracao> duracoesEncontradas = new ArrayList<Duracao>();
+		if (duracaoReal == null || duracaoReal == 0.0) {
+			return null;
+		}
+		Duracao maiorDuracaoEncontrada = Duracao.SEMIFUSA;
 		for (Duracao d : values()) {
-			if (d.getDuracaoReal().equals(duracaoReal)) {
-				duracao = d;
-				break;
+			if(d.getDuracaoReal() <= duracaoReal && d.getDuracaoReal() < maiorDuracaoEncontrada.getDuracaoReal()) {
+				maiorDuracaoEncontrada = d;
 			}
 		}
-		return duracao;
+		if (maiorDuracaoEncontrada.getDuracaoReal() < duracaoReal) {
+			duracoesAnteriores = getByDuracaoReal(duracaoReal - maiorDuracaoEncontrada.getDuracaoReal());
+		}
+		duracoesEncontradas.add(maiorDuracaoEncontrada);
+		if(duracoesAnteriores != null && !duracoesAnteriores.isEmpty() && duracoesAnteriores.get(0) != null) {
+			duracoesEncontradas.addAll(duracoesAnteriores);
+		}
+		return duracoesEncontradas;
 	}
 }

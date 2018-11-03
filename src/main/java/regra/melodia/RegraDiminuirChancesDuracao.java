@@ -13,7 +13,6 @@ public class RegraDiminuirChancesDuracao extends RegraMelodiaMultiplicador {
 
 	public RegraDiminuirChancesDuracao(double multiplicador, Duracao duracao) {
 		super(multiplicador);
-		this.multiplicador = multiplicador;
 		this.duracao = duracao;
 	}
 
