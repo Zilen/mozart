@@ -47,7 +47,7 @@ public class Regra1637 extends RegraAcorde {
 	}
 
 	@Override
-	public void executar(List<AcordesAcao> acordesAcao, Musica musica, Integer iteration) {
+	public Boolean executar(List<AcordesAcao> acordesAcao, Musica musica, Integer iteration) {
 		ListaNota acordeAnterior = musica.getAcordes().get(musica.getAcordes().size()-1);
 		if(acordeAnterior.getPosicaoEscala().equals(1)) {
 			processor.adicionarChance(5, acordesAcao, acordesAcao.get(5).getChanceInversa() * 0.20);
@@ -58,6 +58,8 @@ public class Regra1637 extends RegraAcorde {
 		if(acordeAnterior.getPosicaoEscala().equals(3)) {
 			processor.adicionarChance(6, acordesAcao, acordesAcao.get(6).getChanceInversa() * 0.90);
 		}
+
+	return false;
 	}
 
 	@Override

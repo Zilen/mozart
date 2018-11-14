@@ -15,14 +15,16 @@ public class RegraDiminuirChanceAcordeRepetido extends RegraAcorde {
 	}
 
 	@Override
-	public void executar(List<AcordesAcao> acordesAcao, Musica musica, Integer iteration) {
+	public Boolean executar(List<AcordesAcao> acordesAcao, Musica musica, Integer iteration) {
 
-		
+
 		ListaNota ultimoAcorde = musica.getAcordes().get(iteration -1);
 
 		int valorUltimoAcorde = ultimoAcorde.getAcorde().getPosicaoEscala() -1;
-		
+
 		processor.removerChance(valorUltimoAcorde, acordesAcao, acordesAcao.get(valorUltimoAcorde).getChance() * 0.70);
+
+		return false;
 	}
 
 	@Override

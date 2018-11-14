@@ -10,6 +10,7 @@ import acao.Probabilidade;
 import entitade.Duracao;
 import entitade.Musica;
 import entitade.acorde.ListaNota;
+import entitade.escala.Escala;
 import entitade.nota.Melodia;
 import entitade.nota.NotaTocada;
 import entitade.nota.Som;
@@ -25,20 +26,22 @@ public class MelodiaAcaoProcessor extends AcaoProcessor<Probabilidade<NotaTocada
 	}
 
 	public void calcular(Musica musica) {
-		Melodia notas = new Melodia();
-		while (musica.getTempoCalculadoAtual() < musica.getTempoPorCompasso() * musica.getQtdCompassos()) {
+		Melodia notas = musica.getMelodia();
+		Double tempoCompassoAtual = musica.getTempoCalculadoAtual();
+		geradorNotas : while (musica.getTempoCalculadoAtual() < musica.getTempoPorCompasso() * musica.getQtdCompassos()) {
 			int i = 0;
-
 			List<Probabilidade<NotaTocada>> probabilidades = gerarProbabilidadeDefault(musica, notas);
 
 			if(regras != null) {
 				for(RegraMelodia regra : this.regras) {
-					regra.validarExecutar(probabilidades, musica, i++, notas);
+					if(regra.validarExecutar(probabilidades, musica, i++, notas)) {
+						continue geradorNotas;
+					}
 				}
 			}
 			notas.addNota(escolherNota(probabilidades, notas, musica), musica);
 		}
-		musica.addNotas(notas);
+//		musica.addNotas(notas);
 	}
 
 	public static NotaTocada escolherNota(
@@ -52,7 +55,6 @@ public class MelodiaAcaoProcessor extends AcaoProcessor<Probabilidade<NotaTocada
 		ListaNota acordeCompasso = musica.getAcordeInTempo(musica.getTempoCalculadoAtual());
 		NotaTocada ultimaNota = null;
 		NotaTocada nota = null;
-		double somatoria = 0.0;
 		Double chance = Rand.get().nextDouble();
 		if(notas.isEmpty()) {
 			do {
@@ -61,17 +63,8 @@ public class MelodiaAcaoProcessor extends AcaoProcessor<Probabilidade<NotaTocada
 		} else {
 			ultimaNota = notas.get(notas.size() -1);
 		}
-		for(Probabilidade<NotaTocada> p : probabilidadeNotas) {
-			somatoria += p.getChance();
-			if(chance <= somatoria) {
-				nota = p.get();
-				break;
-			}
-		}
+		nota = RegraMelodia.escolher(probabilidadeNotas, chance);
 
-		if(System.getProperty("showNota") != null) {
-			System.out.println("Nota calculada: "+ nota.toString());
-		}
 
 		return nota;
 	}
@@ -96,6 +89,24 @@ public class MelodiaAcaoProcessor extends AcaoProcessor<Probabilidade<NotaTocada
 			p.atualizarChance(p.getChance() / chanceTotal);
 		}
 		return mapaDefault;
+	}
+
+	public static List<Probabilidade<NotaTocada>> gerarProbabilidadeAcordeEscala(Musica musica, Double probabilidadeDefault, Double probabilidadeEscala, Double probabilidadeAcorde) {
+		Escala escala = musica.getEscala();
+		ListaNota acorde = musica.getAcordeInTempo(musica.getTempoCalculadoAtual());
+		List<Probabilidade<NotaTocada>> mapa = new ArrayList<Probabilidade<NotaTocada>>();
+		for(Som nota : musica.getIntervaloCromaticoMelodia()) {
+			for(Duracao d : Duracao.values()) {
+				if(acorde.pertenceAoAcorde(nota)) {
+					mapa.add(new Probabilidade<NotaTocada>(probabilidadeAcorde, new NotaTocada(nota, null, d)));
+				} else if (escala.pertence(nota)) {
+					mapa.add(new Probabilidade<NotaTocada>(probabilidadeEscala, new NotaTocada(nota, null, d)));
+				} else {
+					mapa.add(new Probabilidade<NotaTocada>(probabilidadeDefault, new NotaTocada(nota, null, d)));
+				}
+			}
+		}
+		return mapa;
 	}
 
 private List<Probabilidade<Som>> getNotaProbabiliade(Musica musica, List<NotaTocada> notas, ListaNota acordeCompasso) {

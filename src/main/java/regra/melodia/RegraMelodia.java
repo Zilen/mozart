@@ -34,20 +34,36 @@ public abstract class RegraMelodia implements Regra<Probabilidade<NotaTocada>> {
 		this.processor = processor;
 	}
 
-	public void validarExecutar(List<Probabilidade<NotaTocada>> acao, Musica musica,
+	public boolean validarExecutar(List<Probabilidade<NotaTocada>> acao, Musica musica,
 			Integer iteration, Melodia notas) {
 		this.notas = notas;
+		boolean continuar = false;
 		if(this.isValid(acao, musica, iteration)) {
-			this.executar(acao, musica, iteration);
+			continuar = this.executar(acao, musica, iteration);
 		}
 		this.recalcular(acao);
 		this.notas = null;
 		this.musica = musica;
+		return continuar;
 	}
 
-	private void recalcular(List<Probabilidade<NotaTocada>> acao) {
+	public static NotaTocada escolher(
+			List<Probabilidade<NotaTocada>> probabilidadeNotas,  Double chance) {
+		NotaTocada nota = null;
+		double somatoria = 0.0;
+		for(Probabilidade<NotaTocada> p : probabilidadeNotas) {
+			somatoria += p.getChance();
+			if(chance <= somatoria) {
+				nota = p.get();
+				break;
+			}
+		}
+		return nota;
+	}
+
+	protected void recalcular(List<Probabilidade<NotaTocada>> acao) {
 		double somatoria = acao.stream().mapToDouble(a -> a.getChance()).sum();
-		acao.forEach(a -> a.atualizarChance(a.getChance() / somatoria));
+		acao.forEach(a -> a.atualizarChance(a.getChance() == 0.0 ? 0.0 : a.getChance() / somatoria));
 	}
 
 	protected List<NotaTocada> getNotas() {

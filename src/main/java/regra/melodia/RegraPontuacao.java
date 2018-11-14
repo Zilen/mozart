@@ -29,12 +29,12 @@ public class RegraPontuacao extends RegraMelodiaMultiplicador {
 	}
 
 	@Override
-	public void executar(List<Probabilidade<NotaTocada>> acao, Musica musica,
+	public Boolean executar(List<Probabilidade<NotaTocada>> acao, Musica musica,
 			Integer iteration) {
 		double tempo = musica.getTempoCalculadoAtual() % musica.getTempoPorCompasso();
 		double duracaoAcorde = super.getNotasInCompasso().stream().mapToDouble(a -> a.getDuracao().getDuracaoReal()).sum();
 		List<Duracao> tempoProximaPontuacao = null;
-		
+
 		for(double t : temposPontuados) {
 			if (t > tempo) {
 				double tempoProximaPontuacaoDouble = t - tempo;
@@ -47,14 +47,15 @@ public class RegraPontuacao extends RegraMelodiaMultiplicador {
 		if (tempoProximaPontuacao == null) {
 			tempoProximaPontuacao = Duracao.getByDuracaoReal(temposPontuados.get(0) + musica.getTempoPorCompasso() - duracaoAcorde);
 		}
-			
-		
+
+
 		for(Probabilidade<NotaTocada> a :acao) {
 			if(a.get().getDuracao().equals(tempoProximaPontuacao)) {
 				a.multiplicarChance(multiplicador);
 			}
-			
+
 		}
+		return true;
 	}
 
 }

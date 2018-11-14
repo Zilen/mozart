@@ -16,6 +16,7 @@ import regra.acorde.RegraDiminuirChanceAcordeRepetido;
 import regra.melodia.RegraDiminuirChancesDuracao;
 import regra.melodia.RegraDiminuirChancesNotaForaDoAcorde;
 import regra.melodia.RegraDiminuirDuracaoNotaForaDoAcorde;
+import regra.melodia.RegraFraseRitmadaPorAcorde;
 import regra.melodia.RegraMelodia;
 import regra.melodia.RegraNovoAcordeNovaNota;
 import Utils.Rand;
@@ -33,7 +34,7 @@ public class Composicao {
 		System.setProperty("showAcorde", "true");
 		System.setProperty("showNota", "true");
 		final Integer tempoPorCompasso = 4;
-		Integer qtdCompassos =10;
+		Integer qtdCompassos =4;
 		Integer tempo = 20;
 		boolean isArpegio = false;
 		new Composicao(Escalas.MAIOR_NATURAL.get(Nota.C), tempoPorCompasso, qtdCompassos, tempo, isArpegio).compor().renderizar();
@@ -75,10 +76,12 @@ public class Composicao {
 		regras.add(new RegraDiminuirChancesDuracao(0.0, Duracao.SEMIFUSA));
 		regras.add(new RegraDiminuirChancesDuracao(0.33, Duracao.SEMICOLCHEIA));
 		regras.add(new RegraDiminuirChancesDuracao(0.62, Duracao.SEMIBREVE));
-		
+
 		regras.add(new RegraDiminuirChancesNotaForaDoAcorde(0.3));
 
 		regras.add(new RegraDiminuirDuracaoNotaForaDoAcorde(0.0, Duracao.COLCHEIA));
+
+//		regras.add(new RegraFraseRitmadaPorAcorde(1.0, Duracao.COLCHEIA, 0.0, 1.0, 2.0, 3.0));
 
 		new MelodiaAcaoProcessor(regras).calcular(musica);
 	}

@@ -14,9 +14,14 @@ public class Probabilidade<T> extends Acao {
 	public void executar(Musica musica) {
 		throw new RuntimeException("Método não utilizado");
 	}
-	
+
 	public T get() {
 		return t;
+	}
+
+	@Override
+	public String toString() {
+		return get().toString() + " - " + super.getChance();
 	}
 
 }

@@ -27,12 +27,13 @@ public class RegraDiminuirDuracaoNotaForaDoAcorde extends RegraMelodiaMultiplica
 	}
 
 	@Override
-	public void executar(List<Probabilidade<NotaTocada>> acao, Musica musica,
+	public Boolean executar(List<Probabilidade<NotaTocada>> acao, Musica musica,
 			Integer iteration) {
 		for(Probabilidade<NotaTocada> a : acao) {
 			if (a.get().getDuracao().getDuracao() < maiorDuracao.getDuracao())
 				a.multiplicarChance(multiplicador);
 		}
+		return false;
 	}
 
 }

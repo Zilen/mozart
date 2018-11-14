@@ -117,7 +117,7 @@ public enum Duracao {
 		}
 		Duracao maiorDuracaoEncontrada = Duracao.SEMIFUSA;
 		for (Duracao d : values()) {
-			if(d.getDuracaoReal() <= duracaoReal && d.getDuracaoReal() < maiorDuracaoEncontrada.getDuracaoReal()) {
+			if(d.getDuracaoReal() <= duracaoReal && d.getDuracaoReal() > maiorDuracaoEncontrada.getDuracaoReal()) {
 				maiorDuracaoEncontrada = d;
 			}
 		}

@@ -13,16 +13,16 @@ public class Regra251 extends RegraAcorde {
 
 
 	private Escala nomeEscala = new EscalaMaiorNatural(null);
-	
+
 	@Override
 	public Boolean isValid(List<AcordesAcao> acordesAcao, Musica musica, Integer iteration) {
 		boolean isEscalaMaior = musica.getEscala().getNome().equals(nomeEscala.getNome());
-		
-		ListaNota a = musica.getAcordes().size() >= 1 ? musica.getAcordes().get(musica.getAcordes().size() -1) : null; 
-		ListaNota acordeAnterior =  musica.getAcordes().size() >= 2 ? musica.getAcordes().get(musica.getAcordes().size() -2) : null; ; 
+
+		ListaNota a = musica.getAcordes().size() >= 1 ? musica.getAcordes().get(musica.getAcordes().size() -1) : null;
+		ListaNota acordeAnterior =  musica.getAcordes().size() >= 2 ? musica.getAcordes().get(musica.getAcordes().size() -2) : null; ;
 		ListaNota acordeAnterior2 =  musica.getAcordes().size() >= 3 ? musica.getAcordes().get(musica.getAcordes().size() -3) : null; ;
 		boolean is251 = this.consume(a, acordeAnterior, acordeAnterior2);
-		
+
 		return isEscalaMaior && is251;
 	}
 
@@ -40,7 +40,7 @@ public class Regra251 extends RegraAcorde {
 	}
 
 	@Override
-	public void executar(List<AcordesAcao> acordesAcao, Musica musica, Integer iteration) {
+	public Boolean executar(List<AcordesAcao> acordesAcao, Musica musica, Integer iteration) {
 		ListaNota acordeAnterior = musica.getAcordes().get(musica.getAcordes().size()-1);
 		if(acordeAnterior.getPosicaoEscala().equals(2)) {
 			processor.adicionarChance(4, acordesAcao, acordesAcao.get(4).getChanceInversa() * 0.30);
@@ -48,6 +48,7 @@ public class Regra251 extends RegraAcorde {
 		if(acordeAnterior.getPosicaoEscala().equals(5)) {
 			processor.adicionarChance(0, acordesAcao, acordesAcao.get(0).getChanceInversa() * 0.85);
 		}
+		return false;
 	}
 
 	@Override

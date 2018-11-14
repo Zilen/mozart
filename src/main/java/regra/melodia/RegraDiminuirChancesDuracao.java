@@ -23,12 +23,12 @@ public class RegraDiminuirChancesDuracao extends RegraMelodiaMultiplicador {
 	}
 
 	@Override
-	public void executar(List<Probabilidade<NotaTocada>> acao, Musica musica,
+	public Boolean executar(List<Probabilidade<NotaTocada>> acao, Musica musica,
 			Integer iteration) {
 		for(Probabilidade<NotaTocada> a : acao) {
 			if (a.get().getDuracao().equals(duracao))
 			a.multiplicarChance(multiplicador);
 		}
+		return false;
 	}
-
 }

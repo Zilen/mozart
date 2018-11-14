@@ -6,12 +6,13 @@ import java.util.List;
 
 import entitade.acorde.ListaNota;
 import entitade.escala.Escala;
+import entitade.nota.Melodia;
 import entitade.nota.NotaTocada;
 import entitade.nota.Som;
 
 public class Musica {
 	private List<ListaNota> acordes;
-	private List<NotaTocada> melodia;
+	private Melodia melodia;
 	private Escala escala;
 	private Integer tempo;
 	private Boolean arpegio;
@@ -27,7 +28,7 @@ public class Musica {
 
 	public Musica(Escala escala, Integer tempo, boolean isArpegio, Som notaBase, Som notaMelodia,  Integer tempoPorCompasso, Integer qtdCompassos, boolean notasForaDaEscala) {
 		this.escala = escala;
-		this.melodia = new ArrayList<NotaTocada>();
+		this.melodia = new Melodia();
 		this.acordes = new ArrayList<ListaNota>();
 		this.notaBaseBaixo = notaBase;
 		this.notaBaseMelodia = notaMelodia;
@@ -65,7 +66,9 @@ public class Musica {
 		this.melodia.addAll(Arrays.asList(notas));
 	}
 	public void addNotas(List<NotaTocada> notas) {
-		this.melodia.addAll(notas);
+		for (NotaTocada nota : notas) {
+			this.melodia.addNota(nota, this);
+		}
 	}
 	public void addAcode(ListaNota acorde) {
 		this.acordes.add(acorde);
@@ -73,7 +76,7 @@ public class Musica {
 	public List<ListaNota> getAcordes() {
 		return acordes;
 	}
-	public List<NotaTocada> getMelodia() {
+	public Melodia getMelodia() {
 		return melodia;
 	}
 	public Escala getEscala() {

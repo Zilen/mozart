@@ -26,13 +26,14 @@ public class RegraDiminuirChancesNotaForaDoAcorde extends RegraMelodiaMultiplica
 	}
 
 	@Override
-	public void executar(List<Probabilidade<NotaTocada>> acao, Musica musica,
+	public Boolean executar(List<Probabilidade<NotaTocada>> acao, Musica musica,
 			Integer iteration) {
 		ListaNota acorde = musica.getAcordeInTempo(musica.getTempoPorCompasso());
 		for(Probabilidade<NotaTocada> a : acao) {
 			if (!acorde.contains(a.get().getNota().getNota()))
 				a.multiplicarChance(multiplicador);
 		}
+		return false;
 	}
 
 }

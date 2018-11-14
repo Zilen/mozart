@@ -11,16 +11,17 @@ import entitade.nota.Nota;
 public class RegraDiminuirChance7 extends RegraAcorde {
 
 	private Escala nomeEscala = new EscalaMaiorNatural(null);
-	
+
 	@Override
 	public Boolean isValid(List<AcordesAcao> acordesAcao, Musica musica, Integer iteration) {
-		
+
 		return musica.getEscala().getNome().equals(nomeEscala.getNome());
 	}
 
 	@Override
-	public void executar(List<AcordesAcao> acordesAcao, Musica musica, Integer iteration) {
+	public Boolean executar(List<AcordesAcao> acordesAcao, Musica musica, Integer iteration) {
 			processor.removerChance(0, acordesAcao, acordesAcao.get(0).getChance() * 0.70);
+			return false;
 		}
 
 	@Override

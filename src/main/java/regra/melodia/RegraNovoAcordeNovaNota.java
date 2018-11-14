@@ -33,7 +33,7 @@ public class RegraNovoAcordeNovaNota extends RegraMelodiaMultiplicador {
 	}
 
 	@Override
-	public void executar(List<Probabilidade<NotaTocada>> acao, Musica musica,
+	public Boolean executar(List<Probabilidade<NotaTocada>> acao, Musica musica,
 			Integer iteration) {
 		Double tempoMinimo = tempoAtual % musica.getTempoPorCompasso().doubleValue();
 		Double limiteMaximo = tempoMinimo + tempoMaximoIncremental;
@@ -50,6 +50,7 @@ public class RegraNovoAcordeNovaNota extends RegraMelodiaMultiplicador {
 			if (duracoesASeremReduzidas.contains(a.get().getDuracao()))
 			a.multiplicarChance(multiplicador);
 		}
+		return false;
 	}
 
 }
