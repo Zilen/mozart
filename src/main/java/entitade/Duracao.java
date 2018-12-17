@@ -130,4 +130,17 @@ public enum Duracao {
 		}
 		return duracoesEncontradas;
 	}
+	public static double getDuracaoSistemicaByReal(double duracaoReal) {
+		if (duracaoReal == 0.0) {
+			return 0.0;
+		}
+		Duracao aux = Duracao.SEMIFUSA;
+		for(Duracao d : Duracao.values()) {
+			if (d.getDuracaoReal() < (duracaoReal) && d.getDuracaoReal() > aux.getDuracaoReal()) {
+				aux = d;
+			}
+		}
+
+		return aux.getDuracao() + getDuracaoSistemicaByReal(duracaoReal - aux.getDuracaoReal());
+	}
 }

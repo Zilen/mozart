@@ -69,9 +69,11 @@ public class JMusic {
 	private static Note[] montarAcorde(ListaNota acorde, List<Som> intervalo, Integer tempoPorAcorde) {
 //		System.out.println(acorde.getNome());
 		Note[] notas = new Note[acorde.size()];
-		Duracao d = getDuracaoPorTempo(tempoPorAcorde);
+
+		double d = Duracao.getByDuracaoReal(tempoPorAcorde.doubleValue()).stream().mapToDouble(du -> du.getDuracaoReal()).sum();
+		double duracaoSistemica = Duracao.getDuracaoSistemicaByReal(d);
 		for(montarAcordeIterator=0; montarAcordeIterator < acorde.size(); montarAcordeIterator++) {
-			notas[montarAcordeIterator] = new Note(intervalo.stream().filter(n -> n.getNota().equals(acorde.get(montarAcordeIterator))).findFirst().get().getPitch(), d.getDuracao());
+			notas[montarAcordeIterator] = new Note(intervalo.stream().filter(n -> n.getNota().equals(acorde.get(montarAcordeIterator))).findFirst().get().getPitch(), duracaoSistemica);
 		}
 		montarAcordeIterator = 0;
 		return notas;

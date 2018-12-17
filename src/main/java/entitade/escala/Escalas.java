@@ -7,14 +7,17 @@ import entitade.nota.Nota;
 public enum Escalas {
 	CIGANA(EscalaCigana.class),
 	MENOR_NATURAL(EscalaMenorNatural.class),
-	MAIOR_NATURAL(EscalaMaiorNatural.class);
-	
+	MAIOR_NATURAL(EscalaMaiorNatural.class),
+	PENTATONICA_MAIOR(EscalaPentatonicaMaior.class),
+	PENTATONICA(EscalaPentatonica.class),
+	PENTABLUES(EscalaPentaBlues.class);
+
 	private Class clazz;
 
 	private Escalas(Class c) {
 		this.clazz = c;
 	}
-	
+
 	public Escala get(Nota n) {
 		Escala escala = null;
 		try {
@@ -26,5 +29,5 @@ public enum Escalas {
 		}
 		return escala;
 	}
-	
+
 }

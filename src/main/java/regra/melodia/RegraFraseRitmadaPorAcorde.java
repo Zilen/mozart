@@ -19,18 +19,24 @@ public class RegraFraseRitmadaPorAcorde extends RegraMelodiaMultiplicador  {
 
 	private LinkedList<Double> pontuacao;
 	private Duracao duracaoIdeal;
+	private List<RegraMelodia> regrasFactiveis;
 
 	public RegraFraseRitmadaPorAcorde(Double chance, Duracao duracaoIdeal, Double... pontuacaoArray) {
 		super(chance);
 		this.pontuacao = new LinkedList<Double>(Arrays.asList(pontuacaoArray));
 		Collections.sort(this.pontuacao);
 		this.duracaoIdeal = duracaoIdeal;
+		this.regrasFactiveis = new ArrayList<RegraMelodia>();
+	}
+
+	public void addRegra(RegraMelodia... regras) {
+		this.regrasFactiveis.addAll(Arrays.asList(regras));
 	}
 
 	@Override
 	public Boolean isValid(List<Probabilidade<NotaTocada>> acao, Musica musica,
 			Integer iteration) {
-		return musica.getTempoCalculadoAtual() % musica.getTempo() == 0.0;
+		return musica.getTempoCalculadoAtual() % musica.getTempoPorCompasso() == 0.0;
 	}
 
 	@Override
@@ -58,6 +64,7 @@ public class RegraFraseRitmadaPorAcorde extends RegraMelodiaMultiplicador  {
 			}
 			double soma = acao.stream().mapToDouble(d -> d.getChance()).sum();
 			super.recalcular(acao);
+			processarRegras(acao, musica, iteration);
 			NotaTocada notaEscolhida = super.escolher(acao, Rand.nextDouble());
 			musica.getMelodia().addNota(notaEscolhida, musica);
 			this.preencherPausa(musica.getMelodia(), tempoMedido - notaEscolhida.getDuracao().getDuracaoReal(), musica);
@@ -67,6 +74,14 @@ public class RegraFraseRitmadaPorAcorde extends RegraMelodiaMultiplicador  {
 		return true;
 	}
 
+
+	private void processarRegras(List<Probabilidade<NotaTocada>> acao, Musica musica, Integer iteration) {
+		if (!this.regrasFactiveis.isEmpty()) {
+			for (RegraMelodia regra : this.regrasFactiveis) {
+				regra.validarExecutar(acao, musica, iteration, musica.getMelodia());
+			}
+		}
+	}
 
 	private double getTempoAserUtilizado(int atual, Integer tempoCompasso) {
 		if(atual == this.pontuacao.size()) {
@@ -82,6 +97,7 @@ public class RegraFraseRitmadaPorAcorde extends RegraMelodiaMultiplicador  {
 	}
 
 	private void preencherPausa(Melodia melodia, double d, Musica musica) {
+		double somaDuracao = 0.0;
 		if (d == 0.0) {
 			return;
 		}
@@ -89,6 +105,10 @@ public class RegraFraseRitmadaPorAcorde extends RegraMelodiaMultiplicador  {
 
 		for (Duracao duracao : listaDuracao) {
 			melodia.addNota(new NotaTocada(Som.PAUSA, null, duracao), musica);
+			somaDuracao+=duracao.getDuracaoReal();
+		}
+		if (somaDuracao != d) {
+			throw new AssertionError();
 		}
 	}
 

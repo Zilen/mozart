@@ -5,8 +5,12 @@ import entitade.nota.Nota;
 
 public class EscalaTest {
 	public static void main(String[] args) {
-		Escalas.MENOR_NATURAL.get(Nota.C).printNotas();
-		Escalas.MAIOR_NATURAL.get(Nota.C).printNotas();
-		Escalas.CIGANA.get(Nota.C).printNotas();
+
+		Nota n = Nota.A;
+
+		for(Escalas e : Escalas.values()) {
+			System.out.print(e.name() + " - ");
+			e.get(n).printNotas();
+		}
 	}
 }

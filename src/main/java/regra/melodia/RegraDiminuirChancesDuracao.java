@@ -1,5 +1,6 @@
 package regra.melodia;
 
+import java.util.Arrays;
 import java.util.List;
 
 import acao.Probabilidade;
@@ -9,11 +10,11 @@ import entitade.nota.NotaTocada;
 
 public class RegraDiminuirChancesDuracao extends RegraMelodiaMultiplicador {
 
-	private Duracao duracao;
+	private List<Duracao> duracoes;
 
-	public RegraDiminuirChancesDuracao(double multiplicador, Duracao duracao) {
+	public RegraDiminuirChancesDuracao(double multiplicador, Duracao... duracoes) {
 		super(multiplicador);
-		this.duracao = duracao;
+		this.duracoes = Arrays.asList(duracoes);
 	}
 
 	@Override
@@ -25,9 +26,9 @@ public class RegraDiminuirChancesDuracao extends RegraMelodiaMultiplicador {
 	@Override
 	public Boolean executar(List<Probabilidade<NotaTocada>> acao, Musica musica,
 			Integer iteration) {
-		for(Probabilidade<NotaTocada> a : acao) {
-			if (a.get().getDuracao().equals(duracao))
-			a.multiplicarChance(multiplicador);
+		for (Probabilidade<NotaTocada> a : acao) {
+			if (duracoes.contains(a.get().getDuracao()))
+				a.multiplicarChance(multiplicador);
 		}
 		return false;
 	}

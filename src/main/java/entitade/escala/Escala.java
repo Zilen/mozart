@@ -20,7 +20,7 @@ public abstract class Escala {
 		if(tonica == null) {
 			tonica = Nota.C;
 		}
-		notas = new ArrayList<Nota>(7);
+		notas = new ArrayList<Nota>(this.getNumeroDeNotas());
 		this.notaAcordeList = new ArrayList<NotaAcorde>(7);
 		this.acordesAcaoList = new ArrayList<AcordesAcao>(7);
 		this.setNota(tonica.setPosicaoNaEscala(1));
@@ -28,16 +28,22 @@ public abstract class Escala {
 		this.setNota(this.getToIII().setPosicaoNaEscala(3));
 		this.setNota(this.getToIV().setPosicaoNaEscala(4));
 		this.setNota(this.getToV().setPosicaoNaEscala(5));
+		if (this.getNumeroDeNotas() > 5)
 		this.setNota(this.getToVI().setPosicaoNaEscala(6));
+		if (this.getNumeroDeNotas() > 6)
 		this.setNota(this.getToVII().setPosicaoNaEscala(7));
-		this.popularAcordes();
-		this.notaAcordeList.forEach(n -> {
-			if(n.acorde().getPosicaoEscala() == 1) {
-				this.acordesAcaoList.add(new AcordesAcao(1.0, n.acorde().getTriade()));
-			} else {
-				this.acordesAcaoList.add(new AcordesAcao(0.0, n.acorde().getTriade()));
-			}
-		});
+		if (this.getNumeroDeNotas() >= 7) {
+			this.popularAcordes();
+			this.notaAcordeList.forEach(n -> {
+				if (n.acorde().getPosicaoEscala() == 1) {
+					this.acordesAcaoList.add(new AcordesAcao(1.0, n.acorde()
+							.getTriade()));
+				} else {
+					this.acordesAcaoList.add(new AcordesAcao(0.0, n.acorde()
+							.getTriade()));
+				}
+			});
+		}
 	}
 
 	private void setNota(Nota nota) {
@@ -161,5 +167,13 @@ public abstract class Escala {
 		public void setAcorde(Acorde acorde) {
 			this.acorde = acorde;
 		}
+	}
+
+	public Integer getNumeroDeNotas(){
+		return 7;
+	}
+
+	public Nota getTonica() {
+		return this.getI().nota;
 	}
 }

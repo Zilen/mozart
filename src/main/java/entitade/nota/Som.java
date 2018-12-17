@@ -160,11 +160,11 @@ public enum Som {
 		};
 		 return retorno;
 	}
-	
+
 	public static List<Som> intervalo(Escala escala, Som base) {
 		return intervalo(escala, base, 2.3);
 	}
-	
+
 	public static List<Som> intervalo(Escala escala, Som base, Double intervaloConst) {
 		Double constante = intervaloConst;
 		return intervalo(escala, get(base.getFrequencia()/constante), get(base.getFrequencia()*(constante)));
@@ -183,10 +183,10 @@ public enum Som {
 	public static List<Som> getList() {
 		return Arrays.asList(values());
 	}
-	
+
 	public static Double getDistanciaTonal(Som som1, Som som2) {
 		Double retorno = 0.0;
-		
+
 		Som somGrave = null;
 		Som somAgudo = null;
 		if(som1.posicao > som2.posicao) {
@@ -196,7 +196,7 @@ public enum Som {
 			somGrave = som1;
 			somAgudo = som2;
 		}
-		
+
 		for(Som s : values()) {
 			if(s.posicao >= somAgudo.posicao) {
 				break;
@@ -204,10 +204,10 @@ public enum Som {
 			if(s.posicao >= somGrave.posicao) {
 				retorno += 0.5;
 			}
-		}		
+		}
 		return retorno;
 	}
-	
+
 	public static Som getSomByDiferencaTonal(Som som, double diferencaEmTons) {
 		Integer posicao = ((Double)(som.posicao + (diferencaEmTons*2.0))).intValue();
 		for(Som s : values()){
@@ -216,12 +216,12 @@ public enum Som {
 		}
 		throw new RuntimeException("n�o foi possivel encontrar som valor ["+posicao+"]");
 	}
-	
-	
+
+
 	public Integer getPitch() {
 		return pitch;
 	}
-	
+
 	private static Map<Som, Double> mapProbabilidade(Musica musica, Som som, ListaNota acorde) {
 		Map<Som, Double> probabilidadeEscala = new TreeMap<Som, Double>();
 		Double somatoria = 0.0;
@@ -230,9 +230,11 @@ public enum Som {
 		List<Som> notas = musica.getIntervalo();
 		List<Som> escalaCromatica = musica.getIntervaloCromaticoMelodia();
 		Escala escala = musica.getEscala();
-		
-		
-		
+
+		//pausa
+		probabilidadeEscala.put(Som.PAUSA, 0.01);
+
+
 		//inicializa o map de probabilidade
 		for(Som s : escalaCromatica) {
 			probabilidadeEscala.put(s, 0.0);
@@ -251,8 +253,8 @@ public enum Som {
 			somatoria += valor;
 			probabilidadeEscala.put(s, probabilidadeEscala.get(s) + valor);
 		}
-		
-		
+
+
 		//soma valores nas notas pertencentes a triade
 		double valorSomadoPertencentesAoAcorde = (somatoria / (notas.size())) * 1.2;
 		for(Som s : notas) {
@@ -262,8 +264,8 @@ public enum Som {
 				probabilidadeEscala.put(s, probabilidadeEscala.get(s) + valor);
 			}
 		}
-		
-		
+
+
 		//remove probabilidade de nota tocada
 		double valorAcordeAnterior = probabilidadeEscala.get(som);
 		double novoValorAcordeAnterior = 0.0;
@@ -276,14 +278,14 @@ public enum Som {
 		}
 		probabilidadeEscala.put(som, novoValorAcordeAnterior);
 		somatoria -= valorAcordeAnterior - novoValorAcordeAnterior;
-		
-		
+
+
 		for(Som s : escalaCromatica) {
 			probabilidadeEscala.put(s, probabilidadeEscala.get(s) / somatoria);
 		}
 		return probabilidadeEscala;
 	}
-	
+
 	public static List<Probabilidade<Som>> gerarProbabilidades(Musica musica, Som som, ListaNota acordeCompasso) {
 		Map<Som, Double> mapProbabilidade = mapProbabilidade(musica, som, acordeCompasso);
 		List<Probabilidade<Som>> probabilidades = new ArrayList<Probabilidade<Som>>();
