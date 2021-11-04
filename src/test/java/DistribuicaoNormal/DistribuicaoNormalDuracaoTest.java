@@ -17,7 +17,7 @@ public class DistribuicaoNormalDuracaoTest {
 		Som nota = Som.C4;
 		Nota tom = Nota.C;
 		Escala escala = new EscalaMaiorNatural(tom);
-		List<Probabilidade<Duracao>> probabilidadeMelodia = Duracao.gerarProbabilidades(new NotaTocada(nota, null, Duracao.FUSA), null, 1, nota, escala.getI().acorde().getTriade());
+		List<Probabilidade<Duracao>> probabilidadeMelodia = Duracao.gerarProbabilidades(new NotaTocada(nota, null, Duracao.FUSA), null, 1, nota, escala.getI().getAcorde().getTriade());
 		
 		probabilidadeMelodia.forEach(p -> 
 		{

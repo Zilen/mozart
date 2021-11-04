@@ -4,16 +4,16 @@ import entitade.acorde.Acorde;
 import entitade.escala.Escala;
 
 public enum Nota {
-	A(1, "Lá", "A"),
-	As(2, "Lá#", "A#"),
+	A(1, "Lï¿½", "A"),
+	As(2, "Lï¿½#", "A#"),
 	B(3, "Si", "B"),
-	C(4, "Dó", "C"),
-	Cs(5, "Dó#", "C#"),
-	D(6, "Ré", "D"),
-	Ds(7, "Ré#", "D#"),
+	C(4, "Dï¿½", "C"),
+	Cs(5, "Dï¿½#", "C#"),
+	D(6, "Rï¿½", "D"),
+	Ds(7, "Rï¿½#", "D#"),
 	E(8, "Mi", "E"),
-	F(9, "Fá", "F"),
-	Fs(10, "Fá#", "F#"),
+	F(9, "Fï¿½", "F"),
+	Fs(10, "Fï¿½#", "F#"),
 	G(11, "Sol", "G"),
 	Gs(12, "Sol#", "G#");
 
@@ -28,8 +28,12 @@ public enum Nota {
 		this.posicaoNaEscala = null;
 		this.cifra = cifra;
 	}
-	
-	
+
+	public static Nota addSemitons(Nota nota, int i) {
+		return getByPosicao(nota.posicao+i);
+	}
+
+
 	public String getNome() {
 		return nome;
 	}
@@ -41,6 +45,9 @@ public enum Nota {
 	
 	public static Nota tom(Nota nota) {
 		return getByPosicao(nota.posicao+2);
+	}
+	public static Nota tomtom(Nota nota) {
+		return getByPosicao(nota.posicao+4);
 	}
 	
 	public static Nota tomSemitom(Nota nota) {

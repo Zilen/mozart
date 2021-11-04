@@ -2,9 +2,9 @@ package entitade.escala;
 
 import entitade.nota.Nota;
 
-public class EscalaMenorNatural extends Escala {
+public class EscalaMaiorHarmonica extends Escala {
 
-	public EscalaMenorNatural(Nota tonica) {
+	public EscalaMaiorHarmonica(Nota tonica) {
 		super(tonica);
 	}
 
@@ -15,12 +15,12 @@ public class EscalaMenorNatural extends Escala {
 
 	@Override
 	protected  Nota getToIII() {
-		return Nota.semitom(getToII());
+		return Nota.tom(getToII());
 	}
 
 	@Override
 	protected Nota getToIV() {
-		return Nota.tom(getToIII());
+		return Nota.semitom(getToIII());
 	}
 
 	@Override
@@ -35,12 +35,12 @@ public class EscalaMenorNatural extends Escala {
 
 	@Override
 	protected Nota getToVII() {
-		return Nota.tom(getToVI());
+		return Nota.tomSemitom(getToVI());
 	}
 
 	@Override
 	public String getNome() {
-		return "Escala Menor Natural";
+		return "Escala Maior Harmônica";
 	}
 	
 }

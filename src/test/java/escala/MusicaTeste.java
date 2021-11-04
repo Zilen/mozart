@@ -18,10 +18,10 @@ public class MusicaTeste {
 		List<ListaNota> acordes = new ArrayList<ListaNota>();
 		
 		for(int i =0; i <3 ; i++) {
-			acordes.add(escala.getIII().acorde().getNona());
-			acordes.add(escala.getI().acorde().getNona());
-			acordes.add(escala.getVII().acorde().getNona());
-			acordes.add(escala.getVI().acorde().getNona());
+			acordes.add(escala.getIII().getAcorde().getNona());
+			acordes.add(escala.getI().getAcorde().getNona());
+			acordes.add(escala.getVII().getAcorde().getNona());
+			acordes.add(escala.getVI().getAcorde().getNona());
 		}
 		
 		

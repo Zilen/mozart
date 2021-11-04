@@ -1,5 +1,6 @@
 package entitade.acorde;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import entitade.escala.Escala;
 import entitade.nota.Nota;
 
@@ -21,6 +22,7 @@ public class Acorde {
 	}
 	private int posicaoEscala;
 	private Nota tonica;
+	@JsonIgnore
 	private Escala escala;
 	private TipoAcorde tipoAcorde;
 	private ListaNota triade;
@@ -34,6 +36,7 @@ public class Acorde {
 	public Nota getTonica() {
 		return tonica;
 	}
+	@JsonIgnore
 	public Escala getEscala() {
 		return escala;
 	}

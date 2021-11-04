@@ -6,8 +6,14 @@ import entitade.nota.Nota;
 
 public enum Escalas {
 	CIGANA(EscalaCigana.class),
+	HIRAJOSHI_SACHS(EscalaHirajoshiSachs.class),
+	HIRAJOSHI_BURROWS(EscalaHirajoshiBurrows.class),
+	ARABICA_MAIOR(EscalaArabeMaior.class),
+	ARABICA_MENOR(EscalaArabeMenor.class),
 	MENOR_NATURAL(EscalaMenorNatural.class),
-	MAIOR_NATURAL(EscalaMaiorNatural.class);
+	MAIOR_NATURAL(EscalaMaiorNatural.class),
+	MENOR_HARMONICA(EscalaMenorHarmonica.class),
+	MAIOR_HARMONICA(EscalaMaiorHarmonica.class),;
 	
 	private Class clazz;
 

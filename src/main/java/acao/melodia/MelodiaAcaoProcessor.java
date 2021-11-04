@@ -7,8 +7,11 @@ import Utils.Rand;
 import acao.AcaoProcessor;
 import acao.Probabilidade;
 import entitade.Duracao;
+import entitade.Melodia;
 import entitade.Musica;
+import entitade.acorde.Acorde;
 import entitade.acorde.ListaNota;
+import entitade.escala.Escala;
 import entitade.nota.NotaTocada;
 import entitade.nota.Som;
 import regra.Regra;
@@ -21,6 +24,12 @@ public class MelodiaAcaoProcessor extends AcaoProcessor<FraseAcao> {
 
 	public MelodiaAcaoProcessor(List<Regra<RegraMelodia>> regras) {
 		this.regras = regras;
+	}
+
+	public Melodia gerarMelodia(List<ListaNota> acordes, Escala escala, Integer tempoPorCompasso, Integer qtdCompassos) {
+		Musica musica = new Musica();
+		this.calcular(musica);
+		return musica;
 	}
 
 	public void calcular(Musica musica) {
@@ -58,7 +67,7 @@ public class MelodiaAcaoProcessor extends AcaoProcessor<FraseAcao> {
 		if(tempo+duracao.getDuracao() > musica.getTempoMusica()) {
 			duracao = Duracao.byDuracao(musica.getTempoMusica() - tempo);
 		} else
-		//Se não é pausa, o acorde mudou e a nota tocada não pertence ao próximo acorde
+		//Se nï¿½o ï¿½ pausa, o acorde mudou e a nota tocada nï¿½o pertence ao prï¿½ximo acorde
 		if (tempo+duracao.getDuracao() < musica.getTempoMusica() && !Som.PAUSA.equals(notaTocada) && !musica.getAcordeInTempo(tempo).equals(musica.getAcordeInTempo(tempo+duracao.getDuracao())) &&
 				musica.getAcordeInTempo(tempo+duracao.getDuracao()).getAcorde().getNona().pertenceAoAcorde(notaTocada)) {
 				duracao = getTempo(musica, notas, tempo, notaTocada, acordeCompasso);

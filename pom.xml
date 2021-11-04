@@ -3,7 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>br.com.praxa</groupId>
 	<artifactId>mozart</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
+	<properties>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
 	<name>mozart</name>
 	<description>mozart</description>
 
@@ -13,6 +17,12 @@
 			<groupId>com.explodingart</groupId>
 			<artifactId>jmusic</artifactId>
 			<version>1.6.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>2.12.5</version>
 		</dependency>
 
 	</dependencies>

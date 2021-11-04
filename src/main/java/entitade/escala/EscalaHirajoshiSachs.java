@@ -2,45 +2,47 @@ package entitade.escala;
 
 import entitade.nota.Nota;
 
-public class EscalaMenorNatural extends Escala {
+public class EscalaHirajoshiSachs extends Escala {
 
-	public EscalaMenorNatural(Nota tonica) {
+	public EscalaHirajoshiSachs(Nota tonica) {
 		super(tonica);
 	}
 
 	@Override
 	protected  Nota getToII() {
-		return Nota.tom(getI().getNota());
+		return Nota.semitom(getI().getNota());
 	}
 
 	@Override
 	protected  Nota getToIII() {
-		return Nota.semitom(getToII());
+		//não tem terceiro
+		return getToII();
 	}
 
 	@Override
 	protected Nota getToIV() {
-		return Nota.tom(getToIII());
+		return Nota.tomtom(getToIII());
 	}
 
 	@Override
 	protected Nota getToV() {
-		return Nota.tom(getToIV());
+		return Nota.tomtom(getToIV());
 	}
 
 	@Override
 	protected Nota getToVI() {
-		return Nota.semitom(getToV());
+		//não tem sexto
+		return getToV();
 	}
 
 	@Override
 	protected Nota getToVII() {
-		return Nota.tom(getToVI());
+		return Nota.tomtom(getToVI());
 	}
 
 	@Override
 	public String getNome() {
-		return "Escala Menor Natural";
+		return "Escala Hirajoshi segundo Sachs";
 	}
 	
 }

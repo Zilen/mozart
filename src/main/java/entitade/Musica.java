@@ -9,7 +9,7 @@ import entitade.escala.Escala;
 import entitade.nota.NotaTocada;
 import entitade.nota.Som;
 
-public class Musica {
+public class Musica implements Melodia {
 	private List<ListaNota> acordes;
 	private List<NotaTocada> melodia;
 	private Escala escala;
@@ -48,7 +48,7 @@ public class Musica {
 				notasForaDaEscala);
 	}
 	private static Som notaBase(Escala escala, Integer local) {
-		return (Som.getList().stream().filter(s -> { return s.name().equals(escala.getI().nota().name().toUpperCase()+local.toString()); }).findFirst().get());
+		return (Som.getList().stream().filter(s -> { return s.name().equals(escala.getI().getNota().name().toUpperCase()+local.toString()); }).findFirst().get());
 	}
 
 	//para o regraBuilder

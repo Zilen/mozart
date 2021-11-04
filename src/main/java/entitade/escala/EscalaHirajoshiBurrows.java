@@ -2,20 +2,21 @@ package entitade.escala;
 
 import entitade.nota.Nota;
 
-public class EscalaMenorNatural extends Escala {
+public class EscalaHirajoshiBurrows extends Escala {
 
-	public EscalaMenorNatural(Nota tonica) {
+	public EscalaHirajoshiBurrows(Nota tonica) {
 		super(tonica);
 	}
 
 	@Override
 	protected  Nota getToII() {
-		return Nota.tom(getI().getNota());
+		//não tem segundo grau
+		return getI().getNota();
 	}
 
 	@Override
 	protected  Nota getToIII() {
-		return Nota.semitom(getToII());
+		return Nota.tomtom(getToII());
 	}
 
 	@Override
@@ -25,22 +26,23 @@ public class EscalaMenorNatural extends Escala {
 
 	@Override
 	protected Nota getToV() {
-		return Nota.tom(getToIV());
+		return Nota.semitom(getToIV());
 	}
 
 	@Override
 	protected Nota getToVI() {
-		return Nota.semitom(getToV());
+		//não tem sexto
+		return getToV();
 	}
 
 	@Override
 	protected Nota getToVII() {
-		return Nota.tom(getToVI());
+		return Nota.tomtom(getToVI());
 	}
 
 	@Override
 	public String getNome() {
-		return "Escala Menor Natural";
+		return "Escala Hirajoshi segundo Burrows";
 	}
 	
 }

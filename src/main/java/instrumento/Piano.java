@@ -51,10 +51,10 @@ public class Piano {
 //			cphraseAcordes.addChord(montarAcorde(doMaior.getV().acorde().getSetima(), intervaloBase));
 			
 			
-			f.addNoteList(montarArpegio(doMaior.getVI().acorde().getTriade(), intervaloBase));
-			f.addNoteList(montarArpegio(doMaior.getIV().acorde().getTriade(), intervaloBase));
-			f.addNoteList(montarArpegio(doMaior.getI().acorde().getTriade(), intervaloBase));
-			f.addNoteList(montarArpegio(doMaior.getV().acorde().getTriade(), intervaloBase));
+			f.addNoteList(montarArpegio(doMaior.getVI().getAcorde().getTriade(), intervaloBase));
+			f.addNoteList(montarArpegio(doMaior.getIV().getAcorde().getTriade(), intervaloBase));
+			f.addNoteList(montarArpegio(doMaior.getI().getAcorde().getTriade(), intervaloBase));
+			f.addNoteList(montarArpegio(doMaior.getV().getAcorde().getTriade(), intervaloBase));
 			
 			
 
